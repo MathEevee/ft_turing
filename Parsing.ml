@@ -17,13 +17,32 @@ let check_Arg argc argv =
 	else
 		true
 
-(* val open_File : string -> string *)
+let open_File filename =
+	try
+		let fd = open_in filename in
+		let filecontent = "" in
+			let rec read_line filecontent =
+				try
+					read_line (filecontent ^ (input_line fd) ^ "\n")
+				with End_of_file -> close_in fd;
+					if filecontent = "" then
+						begin
+							ignore (print_Error "Error : Empty file");
+							""
+						end
+					else
+						filecontent
+			in read_line filecontent
+	with Sys_error msg ->
+    	ignore (print_Error ("Error : " ^ msg));
+		""
+
 
 (* val to_Json : string -> Yojson.Safe.t *)
 
 (* val init_Json_Struct : Yojson.Safe.t -> Type.Json *)
 
-(* val check_Alphabet : string -> bool * Type.Alphabet *)
+(* val check_Alphabet : string List -> bool * Type.Alphabet *)
 
 (* val check_Blank : string -> Type.Alphabet -> bool * Type.Blank *)
 

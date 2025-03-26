@@ -1,12 +1,12 @@
 val check_Arg : int -> string array -> bool
 
-(* val open_File : string -> string *)
+val open_File : string -> string
 
 (* val to_Json : string -> Yojson.Safe.t *)
 
 (* val init_Json_Struct : Yojson.Safe.t -> Type.Json *)
 
-(* val check_Alphabet : string -> bool * Type.alphabet *)
+(* val check_Alphabet : string List -> bool * Type.alphabet *)
 
 (* val check_Blank : string -> Type.alphabet -> bool * Type.blank *)
 
