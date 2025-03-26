@@ -20,7 +20,7 @@ type transition = {
 	move : move
 }
 
-type transitions = ( state * transition list ) list
+type transitions = transition list
 
 type json = {
 	mutable name : string;
