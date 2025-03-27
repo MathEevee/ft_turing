@@ -35,6 +35,7 @@ type json = {
 type machine = {
 	mutable tape : letter array;
 	mutable head : int;
+	mutable size : int;
 	blank : blank;
 	mutable current_state : state;
 	transtions : transitions;

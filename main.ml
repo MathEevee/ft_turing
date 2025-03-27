@@ -39,3 +39,14 @@ let () =
 	{ current_state = "skip"; read = '.'; to_state = "skip"; write = '.'; move = LEFT };
 	{ current_state = "skip"; read = '1'; to_state = "scanright"; write = '.'; move = RIGHT };
 	]	in print_Transitions transitions;
+	
+	print_string "\n********************************************\n";
+
+	let machine = {
+		tape = arr_of_chars = Array.of_string "111-11=..............";
+		head = 0;
+		size = 21;
+		blank = '.'
+		current_state = "scanright";
+		transtions = transitions;
+	} 

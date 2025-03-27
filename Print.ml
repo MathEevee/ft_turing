@@ -68,3 +68,28 @@ let print_Transitions transitions =
 		| head :: tail -> print_Transition head;
 							print_Transitions_List tail
 	in print_Transitions_List transitions
+
+
+let get_start_position display_size head =
+	if head - (display_size / 2) <= 0 then
+		0
+	else
+		head - (display_size / 2)
+
+let print_Tape (machine : Type.machine) next_transition =
+	print_char '[';
+	let rec loop_print_Tape (machine : Type.machine) move start size_end =
+		if start <> size_end then
+			begin
+				if start = machine.head then
+					print_string ("\x1b[38;5;74m" ^ (String.make 1 machine.tape.(start)) ^ "\x1b[0m")
+				else if start = machine.head + move then
+					print_string ("\x1b[38;5;109m" ^ (String.make 1 machine.tape.(start)) ^ "\x1b[0m")
+				else
+					print_string (String.make 1 machine.tape.(start));
+				loop_print_Tape machine move (start + 1) size_end
+			end
+		else
+			()
+	in loop_print_Tape machine (Machine.get_direction next_transition.move) (get_start_position 21 machine.head) (get_start_position(21 machine.head) + 21);
+	print_char ']'
