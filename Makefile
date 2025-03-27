@@ -24,15 +24,15 @@ OCAMLC = ocamlc
 OCAMLOPT = ocamlopt
 OCAMLDEP = ocamldep
 
-CR = "\r"$(CLEAR)
 CLEAR = "\033[0K"
+CR = "\r"$(CLEAR)
 BASENAME = `basename $@`
 
 all: native
 
 byte: $(NAME).occ
 
-$(NAME).occ: $(CMI_FILES) $(CMO_FILES)
+$(NAME).occ: $(CMO_FILES)
 	@$(OCAMLC) -o $@ $^
 	@printf $(CR)"\e[1m\e[38;5;74m>>> $(NAME).occ is created ! <<<\e[0m\n"
 
@@ -46,7 +46,7 @@ $(NAME).lopt: $(CMX_FILES)
 	@$(OCAMLC) -c $<
 	@printf $(CR)"\e[2m\e[38;5;32m>>>\e[0m $(BASENAME)%s \e[2m\e[38;5;32m<<<\e[0m"$(CLEAR)
 
-%.cmo: %.ml
+%.cmo: %.ml $(CMI_FILES)
 	@$(OCAMLC) -c $<
 	@printf $(CR)"\e[2m\e[38;5;32m>>>\e[0m $(BASENAME)%s \e[2m\e[38;5;32m<<<\e[0m"$(CLEAR)
 
@@ -64,7 +64,7 @@ depend:
 -include .depend
 
 clean:
-	@rm -f $(CMO_FILES) $(CMI_FILES) $(CMX_FILES) $(O_FILES) .depend
+	@rm -rf $(CMO_FILES) $(CMI_FILES) $(CMX_FILES) $(O_FILES) .depend
 	@printf "\e[1m\e[38;5;29mAll object files of $(NAME) are cleaned !\e[0m\n"
 
 fclean: clean
