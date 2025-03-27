@@ -16,4 +16,4 @@ val print_Transition : Type.transition -> unit
 
 val get_start_position : int -> int -> int
 
-val print_Tape : Type.machine -> unit
+val print_Tape : Type.machine -> Type.transition -> unit

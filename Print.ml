@@ -1,3 +1,5 @@
+open Type
+
 let print_Help () =
 	print_endline "usage: ft_turing [-h] jsonfile input";
 	print_endline "positional arguments:";
@@ -45,7 +47,7 @@ let print_Finals finals =
 							print_Final tail
 	in print_Final finals
 
-let print_Transition (transition : Type.transition) =
+let print_Transition (transition : transition) =
 	print_string "\x1b[38;5;74m";
 	print_string transition.current_state;
 	print_string ", ";
@@ -76,20 +78,20 @@ let get_start_position display_size head =
 	else
 		head - (display_size / 2)
 
-let print_Tape (machine : Type.machine) next_transition =
+let print_Tape machine next_transition =
 	print_char '[';
-	let rec loop_print_Tape (machine : Type.machine) move start size_end =
+	let rec loop_print_Tape machine move start size_end =
 		if start <> size_end then
 			begin
 				if start = machine.head then
 					print_string ("\x1b[38;5;74m" ^ (String.make 1 machine.tape.(start)) ^ "\x1b[0m")
 				else if start = machine.head + move then
-					print_string ("\x1b[38;5;109m" ^ (String.make 1 machine.tape.(start)) ^ "\x1b[0m")
+					print_string ("\x1b[38;5;140m" ^ (String.make 1 machine.tape.(start)) ^ "\x1b[0m")
 				else
 					print_string (String.make 1 machine.tape.(start));
 				loop_print_Tape machine move (start + 1) size_end
 			end
 		else
 			()
-	in loop_print_Tape machine (Machine.get_direction next_transition.move) (get_start_position 21 machine.head) (get_start_position(21 machine.head) + 21);
+	in loop_print_Tape machine (Machine.get_direction next_transition.move) (get_start_position 21 machine.head) ((get_start_position 21 machine.head) + 21);
 	print_char ']'

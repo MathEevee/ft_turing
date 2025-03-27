@@ -43,10 +43,10 @@ let () =
 	print_string "\n********************************************\n";
 
 	let machine = {
-		tape = arr_of_chars = Array.of_string "111-11=..............";
+		tape = [|'1'; '1'; '1'; '-'; '1'; '1'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'|];
 		head = 0;
 		size = 21;
-		blank = '.'
+		blank = '.';
 		current_state = "scanright";
 		transtions = transitions;
-	} 
+	} in print_Tape machine { current_state = "scanright"; read = '1'; to_state = "scanright"; write = '1'; move = RIGHT }
