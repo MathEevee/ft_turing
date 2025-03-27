@@ -39,11 +39,12 @@ let () =
 	{ current_state = "skip"; read = '.'; to_state = "skip"; write = '.'; move = LEFT };
 	{ current_state = "skip"; read = '1'; to_state = "scanright"; write = '.'; move = RIGHT };
 	]	in print_Transitions transitions;
-	
-	print_string "\n********************************************\n";
+
+	print_endline "";
+	print_Decorator 21 "-*";
 
 	let machine = {
-		tape = [|'1'; '1'; '1'; '-'; '1'; '1'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'; '.'|];
+		tape = [|'1'; '1'; '1'; '-'; '1'; '1'; '='|];
 		head = 0;
 		size = 21;
 		blank = '.';

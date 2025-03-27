@@ -1,5 +1,7 @@
 open Type
 
+let display_len = 21
+
 let print_Help () =
 	print_endline "usage: ft_turing [-h] jsonfile input";
 	print_endline "positional arguments:";
@@ -71,27 +73,56 @@ let print_Transitions transitions =
 							print_Transitions_List tail
 	in print_Transitions_List transitions
 
+let rec print_Decorator repeat str =
+	if repeat <= 0 then
+		begin
+			print_endline str;
+			print_endline ""
+		end
+	else
+		begin
+			print_string str;
+			print_Decorator (repeat - 1) str
+		end
 
-let get_start_position display_size head =
+let get_Start_Position display_size head =
 	if head - (display_size / 2) <= 0 then
 		0
 	else
 		head - (display_size / 2)
 
+let print_Colored_Char color character =
+	print_string color;
+	print_char character;
+	print_string "\x1b[0m"
+
 let print_Tape machine next_transition =
 	print_char '[';
-	let rec loop_print_Tape machine move start size_end =
-		if start <> size_end then
+
+	let move = Machine.get_direction next_transition.move in
+	let start = get_Start_Position display_len machine.head in
+	let the_end = start + display_len - (display_len mod 2) in
+
+	let rec loop_Print_Tape machine index the_end move =
+		if index <> the_end then
 			begin
-				if start = machine.head then
-					print_string ("\x1b[38;5;74m" ^ (String.make 1 machine.tape.(start)) ^ "\x1b[0m")
-				else if start = machine.head + move then
-					print_string ("\x1b[38;5;140m" ^ (String.make 1 machine.tape.(start)) ^ "\x1b[0m")
+				if index = machine.head then
+					print_Colored_Char "\x1b[38;5;74m" machine.tape.(index)
+				else if index = (machine.head + move) then
+					begin
+						if (machine.head + move) >= (Array.length machine.tape) then
+							print_Colored_Char "\x1b[38;5;140m" machine.blank
+						else
+							print_Colored_Char "\x1b[38;5;140m" machine.tape.(index)
+					end
+				else if index >= (Array.length machine.tape) then
+					print_Colored_Char "\x1b[38;5;145m" machine.blank
 				else
-					print_string (String.make 1 machine.tape.(start));
-				loop_print_Tape machine move (start + 1) size_end
+					print_Colored_Char "\x1b[38;5;145m" machine.tape.(index);
+				loop_Print_Tape machine (index + 1) the_end move
 			end
 		else
 			()
-	in loop_print_Tape machine (Machine.get_direction next_transition.move) (get_start_position 21 machine.head) ((get_start_position 21 machine.head) + 21);
-	print_char ']'
+	in loop_Print_Tape machine start the_end move; 
+	print_string "] | ";
+	print_Transition next_transition

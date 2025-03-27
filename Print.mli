@@ -14,6 +14,10 @@ val print_Transitions : Type.transitions -> unit
 
 val print_Transition : Type.transition -> unit
 
-val get_start_position : int -> int -> int
+val print_Decorator : int -> string -> unit
+
+val get_Start_Position : int -> int -> int
+
+val print_Colored_Char : string -> Type.letter -> unit
 
 val print_Tape : Type.machine -> Type.transition -> unit
