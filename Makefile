@@ -1,24 +1,24 @@
 NAME = ft_turing
 
-OBJS = Print Parsing Machine
+OBJS = Machine Print Parsing
 
 MLI_FILES = Type.mli
 MLI_FILES += $(OBJS:=.mli)
 
-ML_FILES = main.ml
 ML_FILES += $(OBJS:=.ml)
+ML_FILES = main.ml
 
 CMI_FILES = Type.cmi
 CMI_FILES += $(OBJS:=.cmi)
 
-CMO_FILES = main.cmo
-CMO_FILES += $(OBJS:=.cmo)
+CMO_FILES = $(OBJS:=.cmo)
+CMO_FILES += main.cmo
 
-O_FILES = main.o
-O_FILES += $(OBJS:=.o)
+O_FILES = $(OBJS:=.o)
+O_FILES += main.o
 
-CMX_FILES = main.cmx
-CMX_FILES += $(OBJS:=.cmx)
+CMX_FILES = $(OBJS:=.cmx)
+CMX_FILES += main.cmx
 
 OCAMLC = ocamlc
 OCAMLOPT = ocamlopt
@@ -50,7 +50,7 @@ $(NAME).lopt: $(CMX_FILES)
 	@$(OCAMLC) -c $<
 	@printf $(CR)"\e[2m\e[38;5;32m>>>\e[0m $(BASENAME)%s \e[2m\e[38;5;32m<<<\e[0m"$(CLEAR)
 
-%.cmx: %.ml
+%.cmx: %.ml $(CMI_FILES)
 	@$(OCAMLOPT) -c $<
 	@printf $(CR)"\e[2m\e[38;5;32m>>>\e[0m $(BASENAME)%s \e[2m\e[38;5;32m<<<\e[0m"$(CLEAR)
 

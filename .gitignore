@@ -2,3 +2,5 @@
 *.cmi
 *.o
 a.out
+ft_turing.lopt
+ft_turing.occ
