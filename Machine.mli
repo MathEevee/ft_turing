@@ -1,13 +1,11 @@
 (* val init_Machine : Type.json -> Type.machine *)
 
-(* val turing : Type.machine -> () *)
+val ft_Turing : Type.machine -> unit
 
-(* val is_Final_State : Type.state -> Type.finals -> bool *)
+val is_Final_State : Type.state -> Type.state list -> bool
 
-(* val has_Next_State : Type.state -> Type.letter -> bool *)
-
-(* val get_Next_State : Type.state -> Type.letter -> Type.transitions -> Type.transition *)
+val get_Next_State : Type.state -> Type.transitions -> Type.letter -> bool * Type.transition
 	
-(* val apply_Transtion : Type.machine -> Type.transition -> () *)
+val apply_Transition : Type.machine -> Type.transition -> unit
 
 val get_direction : Type.move -> int

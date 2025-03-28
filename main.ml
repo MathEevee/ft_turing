@@ -1,4 +1,5 @@
 open Parsing
+open Machine
 open Print
 open Type
 
@@ -46,8 +47,9 @@ let () =
 	let machine = {
 		tape = [|'1'; '1'; '1'; '-'; '1'; '1'; '='|];
 		head = 0;
-		size = 21;
+		size = 7;
 		blank = '.';
 		current_state = "scanright";
-		transtions = transitions;
-	} in print_Tape machine { current_state = "scanright"; read = '1'; to_state = "scanright"; write = '1'; move = RIGHT }
+		finals = [ "HALT" ];
+		transitions = transitions;
+	} in ft_Turing machine

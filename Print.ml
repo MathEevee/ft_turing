@@ -2,6 +2,11 @@ open Type
 
 let display_len = 21
 
+let get_direction move =
+    match move with
+    | LEFT -> (-1)
+    | RIGHT -> 1
+
 let print_Help () =
 	print_endline "usage: ft_turing [-h] jsonfile input";
 	print_endline "positional arguments:";
@@ -99,7 +104,7 @@ let print_Colored_Char color character =
 let print_Tape machine next_transition =
 	print_char '[';
 
-	let move = Machine.get_direction next_transition.move in
+	let move = get_direction next_transition.move in
 	let start = get_Start_Position display_len machine.head in
 	let the_end = start + display_len - (display_len mod 2) in
 
@@ -110,12 +115,12 @@ let print_Tape machine next_transition =
 					print_Colored_Char "\x1b[38;5;74m" machine.tape.(index)
 				else if index = (machine.head + move) then
 					begin
-						if (machine.head + move) >= (Array.length machine.tape) then
+						if (machine.head + move) >= machine.size then
 							print_Colored_Char "\x1b[38;5;140m" machine.blank
 						else
 							print_Colored_Char "\x1b[38;5;140m" machine.tape.(index)
 					end
-				else if index >= (Array.length machine.tape) then
+				else if index >= machine.size then
 					print_Colored_Char "\x1b[38;5;145m" machine.blank
 				else
 					print_Colored_Char "\x1b[38;5;145m" machine.tape.(index);

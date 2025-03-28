@@ -1,6 +1,6 @@
 NAME = ft_turing
 
-OBJS = Machine Print Parsing
+OBJS = Print Machine Parsing
 
 MLI_FILES = Type.mli
 MLI_FILES += $(OBJS:=.mli)
@@ -64,7 +64,7 @@ depend:
 -include .depend
 
 clean:
-	@rm -rf $(CMO_FILES) $(CMI_FILES) $(CMX_FILES) $(O_FILES) .depend
+	@rm -rf $(CMO_FILES) $(CMI_FILES) $(CMX_FILES) $(O_FILES) main.cmi .depend
 	@printf "\e[1m\e[38;5;29mAll object files of $(NAME) are cleaned !\e[0m\n"
 
 fclean: clean

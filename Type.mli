@@ -14,7 +14,7 @@ type move = LEFT | RIGHT
 
 type transition = {
 	current_state : state;
-	read : letter;	
+	read : letter;
 	to_state : state;
 	write : letter;
 	move : move
@@ -38,5 +38,6 @@ type machine = {
 	mutable size : int;
 	blank : blank;
 	mutable current_state : state;
-	transtions : transitions;
+	finals : state list;
+	transitions : transitions;
 }
