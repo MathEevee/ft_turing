@@ -24,6 +24,9 @@ OCAMLC = ocamlc
 OCAMLOPT = ocamlopt
 OCAMLDEP = ocamldep
 
+STR_LIB = str.cma
+STR_LIB_NATIVE = str.cmxa
+
 CLEAR = "\033[0K"
 CR = "\r"$(CLEAR)
 BASENAME = `basename $@`
@@ -51,7 +54,7 @@ $(NAME).lopt: $(CMX_FILES)
 	@printf $(CR)"\e[2m\e[38;5;32m>>>\e[0m $(BASENAME)%s \e[2m\e[38;5;32m<<<\e[0m"$(CLEAR)
 
 %.cmx: %.ml $(CMI_FILES)
-	@$(OCAMLOPT) -c $<
+	@$(OCAMLOPT) -c $< 
 	@printf $(CR)"\e[2m\e[38;5;32m>>>\e[0m $(BASENAME)%s \e[2m\e[38;5;32m<<<\e[0m"$(CLEAR)
 
 %.o: %.ml

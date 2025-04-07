@@ -2,6 +2,10 @@ val check_Arg : int -> string array -> bool
 
 val open_File : string -> string
 
+val parse_File : string -> bool
+
+val check_File_Format : string -> bool
+
 (* val to_Json : string -> Yojson.Safe.t *)
 
 (* val init_Json_Struct : Yojson.Safe.t -> Type.Json *)

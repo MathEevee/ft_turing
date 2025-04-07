@@ -10,13 +10,19 @@ let () =
 	if not (check_Arg argc argv) then
 		exit 1;
 
-(*	let filecontent = (open_File argv.(1)) in
+	let filecontent = (open_File argv.(1)) in
 	if filecontent = "" then
 		exit 1
 	else
-		print_string filecontent; *)
+		print_string filecontent;
 
-	let alphabet = ['1'; '.'; '-'; '='] in
+	let parse_bool = (parse_File filecontent) in
+	if parse_bool = false then
+		exit 1
+	else
+		print_endline "UWU It's working"
+
+(*	let alphabet = ['1'; '.'; '-'; '='] in
 	print_Alphabet alphabet;
 
 	let states = [ "scanright"; "eraseone"; "subone"; "skip"; "HALT" ] in
@@ -52,4 +58,4 @@ let () =
 		current_state = "scanright";
 		finals = [ "HALT" ];
 		transitions = transitions;
-	} in ft_Turing machine
+	} in ft_Turing machine *)
