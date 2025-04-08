@@ -1,7 +1,35 @@
 open Print
 open Str
 
-let reg_file = "\\{\\s*\"name\"\\s*:\\s*\"[^\"]*\",\\s*\"alphabet\"\\s*:\\s*\\[\\s*\"[^\"]*\"(?:\\s*,\\s*\"[^\"]*\")*\\s*\\]\\s*,\\s*\"blank\"\\s*:\\s*\"[^\"]\",\\s*\"states\"\\s*:\\s*\\[\\s*\"[^\"]*\"(?:\\s*,\\s*\"[^\"]*\")*\\s*\\]\\s*,\\s*\"initial\"\\s*:\\s*\"[^\"]*\",\\s*\"final\"\\s*:\\s*\\[\\s*\"[^\"]*\"(?:\\s*,\\s*\"[^\"]*\")*\\s*\\]\\s*,\\s*\"transitions\"\\s*:\\s*\\{(\\s*\"[^\"]*\"\\s*:\\s*\\[\\s*(\\{\\s*\"read\"\\s*:\\s*\"[^\"]*\"\\s*,\\s*\"to_state\"\\s*:\\s*\"[^\"]*\"\\s*,\\s*\"write\"\\s*:\\s*\"[^\"]*\"\\s*,\\s*\"action\"\\s*:\\s*(RIGHT|LEFT)\\s*\\}\\s*,\\s*)*)*\\s*\\]\\s*\\}\\s*\\}"
+let ws = "[ \n\r\x0c\t]*"
+let en = ws ^ "," ^ ws
+let wd = "\"[^\"^\n]+\""
+let one = "\"[^\"^\n]\""
+let dot = ws ^ ":" ^ ws
+
+let tl = "\\[\\(\\(" ^ ws ^ one ^ ws ^ ",\\)*" ^ ws ^ one ^ ws ^ "\\)" ^ ws ^ "\\]"
+let ts = "\\[\\(\\(" ^ ws ^ wd ^ ws ^ ",\\)*" ^ ws ^ wd ^ ws ^ "\\)" ^ ws ^ "\\]"
+
+let tr = ws ^ "{" ^ ws ^ "\"read\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
+		 "\"to_state\"" ^ dot ^ wd ^ ws ^ "," ^ ws ^
+		 "\"write\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
+		 "\"action\"" ^ dot ^ "\"\\(RIGHT\\|LEFT\\)\"" ^ ws ^
+		 "}"
+
+let trr = "\\(\\(" ^ tr ^ ",\\)*" ^ tr ^ "\\)"
+
+let ls = ws ^ wd ^ ws ^ dot ^ ws ^ "[" ^ ws ^ trr ^ ws ^ "]" ^ ws
+let lss = "\\(\\(" ^ ls ^ ",\\)*" ^ ls ^ "\\)"
+ 
+let test = "\\{" ^ ws ^ "\"name\"" ^ dot ^ wd ^ en ^ 
+			"\"alphabet\"" ^ dot ^ tl ^ en ^
+			"\"blank\"" ^ dot ^ "\"[^\"^\n]\"" ^ en ^
+			"\"states\"" ^ dot ^ ts ^ en ^
+			"\"initial\"" ^ dot ^ wd ^ en ^
+			"\"finals\"" ^ dot ^ ts ^ en ^
+			"\"transitions\"" ^ dot ^ "{" ^ lss ^
+			"\\}" ^ ws ^
+			"\\}"
 
 let check_Arg argc argv =
 	if argc = 2 && (argv.(1) = "--help" || argv.(1) = "-h") then
@@ -41,18 +69,17 @@ let open_File file_name =
 		""
 
 let check_File_Format file_content =
-	let regex = Str.regexp reg_file in
-    	if Str.string_match regex file_content 0 then
-			begin
-	      		print_endline "La chaîne correspond à la regex !";
-				true
-			end
-    	else
-			begin
-	     		print_endline "La chaîne ne correspond pas à la regex.";
-				false
-			end
-
+    let regex = Str.regexp test in
+    if Str.string_match regex file_content 0 then
+        begin
+            print_endline "La chaine correspond a la regex !";
+            true
+        end
+    else
+        begin
+            print_endline "La chaine ne correspond pas a la regex.";
+            false
+        end
 
 let parse_File file_content =
 	if (check_File_Format file_content) = false then
