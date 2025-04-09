@@ -2,13 +2,29 @@ val check_Arg : int -> string array -> bool
 
 val open_File : string -> string
 
-val parse_File : string -> bool
+val parse_File : string -> bool * Type.json
 
 val check_File_Format : string -> bool
 
-val search_Index_Not_In_Quotes : string -> char -> int
+val get_Index_Not_In_Quotes : int -> string -> char -> int
 
-(* val check_Alphabet : string List -> bool * Type.alphabet *)
+val loop_check_double : 'a -> 'a list -> bool
+
+val check_lst_double : 'a list -> bool
+
+val get_String : string -> int ref -> string
+
+val get_List_String : string -> int ref -> string list
+
+val check_Alphabet : Type.alphabet -> bool
+
+val check_Blank : Type.blank -> Type.alphabet -> bool
+
+val check_States : Type.states -> bool
+
+val check_Initial : Type.state -> Type.states -> bool
+
+val check_Finals : Type.states -> Type.states -> bool
 
 (* val check_Blank : string -> Type.alphabet -> bool * Type.blank *)
 

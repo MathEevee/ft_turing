@@ -10,29 +10,26 @@ let () =
 	if not (check_Arg argc argv) then
 		exit 1;
 
-	(* let filecontent = (open_File argv.(1)) in
+	let filecontent = (open_File argv.(1)) in
 	if filecontent = "" then
 		exit 1
 	else
 		print_string filecontent;
 
-	let parse_bool = (parse_File filecontent) in
+	let (parse_bool, rec_json) = (parse_File filecontent) in
 	if parse_bool = false then
 		exit 1
 	else
-		print_endline "UWU It's working" *)
-
-		(* faire une fonction qui prend un charactere en parametre et le cherche en skipant 
-		si le character est dans les quotes et renvoie un index *)
-
-
-	
-	let parser_test = search_Index_Not_In_Quotes ": \"unary_sub\"," ',' in
-	print_int parser_test;
-	print_char '\n';
-
-
-
+		begin
+			print_endline ("Name : " ^ rec_json.name);
+			print_Alphabet rec_json.alphabet;
+			print_string ("Blank : ");
+			print_char rec_json.blank;
+			print_char '\n';
+			print_States rec_json.states;
+			print_Initial rec_json.initial;
+			print_Finals rec_json.finals
+		end
 
 (*	let alphabet = ['1'; '.'; '-'; '='] in
 	print_Alphabet alphabet;
