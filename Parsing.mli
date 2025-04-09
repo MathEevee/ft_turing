@@ -6,6 +6,8 @@ val parse_File : string -> bool
 
 val check_File_Format : string -> bool
 
+val search_Index_Not_In_Quotes : string -> char -> int
+
 (* val check_Alphabet : string List -> bool * Type.alphabet *)
 
 (* val check_Blank : string -> Type.alphabet -> bool * Type.blank *)

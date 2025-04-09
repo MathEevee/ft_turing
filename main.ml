@@ -10,7 +10,7 @@ let () =
 	if not (check_Arg argc argv) then
 		exit 1;
 
-	let filecontent = (open_File argv.(1)) in
+	(* let filecontent = (open_File argv.(1)) in
 	if filecontent = "" then
 		exit 1
 	else
@@ -20,7 +20,19 @@ let () =
 	if parse_bool = false then
 		exit 1
 	else
-		print_endline "UWU It's working"
+		print_endline "UWU It's working" *)
+
+		(* faire une fonction qui prend un charactere en parametre et le cherche en skipant 
+		si le character est dans les quotes et renvoie un index *)
+
+
+	
+	let parser_test = search_Index_Not_In_Quotes ": \"unary_sub\"," ',' in
+	print_int parser_test;
+	print_char '\n';
+
+
+
 
 (*	let alphabet = ['1'; '.'; '-'; '='] in
 	print_Alphabet alphabet;

@@ -1,6 +1,16 @@
 open Print
 open Str
 
+let search_Index_Not_In_Quotes src c =
+	let rec loop_search src c i in_quotes =
+		if (String.get src i) = c && not in_quotes then
+			i
+		else if (String.get src i) = '"' then
+			loop_search src c (i + 1) (not in_quotes)
+		else
+			loop_search src c (i + 1) in_quotes
+	in loop_search src c 0 false
+
 let ws = "[ \n\r\x0c\t]*"
 let en = ws ^ "," ^ ws
 let wd = "\"[^\"^\n]+\""
