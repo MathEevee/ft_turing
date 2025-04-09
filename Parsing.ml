@@ -15,13 +15,12 @@ let tr = ws ^ "{" ^ ws ^ "\"read\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
 		 "\"write\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
 		 "\"action\"" ^ dot ^ "\"\\(RIGHT\\|LEFT\\)\"" ^ ws ^
 		 "}"
-
 let trr = "\\(\\(" ^ tr ^ ",\\)*" ^ tr ^ "\\)"
 
 let ls = ws ^ wd ^ ws ^ dot ^ ws ^ "[" ^ ws ^ trr ^ ws ^ "]" ^ ws
 let lss = "\\(\\(" ^ ls ^ ",\\)*" ^ ls ^ "\\)"
  
-let test = "\\{" ^ ws ^ "\"name\"" ^ dot ^ wd ^ en ^ 
+let reg_file = "\\{" ^ ws ^ "\"name\"" ^ dot ^ wd ^ en ^ 
 			"\"alphabet\"" ^ dot ^ tl ^ en ^
 			"\"blank\"" ^ dot ^ "\"[^\"^\n]\"" ^ en ^
 			"\"states\"" ^ dot ^ ts ^ en ^
@@ -69,28 +68,17 @@ let open_File file_name =
 		""
 
 let check_File_Format file_content =
-    let regex = Str.regexp test in
-    if Str.string_match regex file_content 0 then
-        begin
-            print_endline "La chaine correspond a la regex !";
-            true
-        end
-    else
-        begin
-            print_endline "La chaine ne correspond pas a la regex.";
-            false
-        end
+	let regex = Str.regexp reg_file in
+	if Str.string_match regex file_content 0 then
+		true
+	else
+		print_Error "Error : Bad file format"
 
 let parse_File file_content =
 	if (check_File_Format file_content) = false then
 		false
 	else
 		true
-	
-
-(* val to_Json : string -> Yojson.Safe.t *)
-
-(* val init_Json_Struct : Yojson.Safe.t -> Type.Json *)
 
 (* val check_Alphabet : string List -> bool * Type.Alphabet *)
 
