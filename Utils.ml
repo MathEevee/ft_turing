@@ -89,16 +89,34 @@ let get_Move str i =
         Type.LEFT
 
 let create_Transition name str i =
-    (* i := get_Index_Not_In_Quotes !i str '{'; *)
-    let (transition_record : Type.transition) = {
-        current_state = name;
-        read = (get_String str i).[0];
-        to_state = get_String str i;
-        write = (get_String str i).[0];
-        move = get_Move str i
-    } in
-    print_Transition transition_record;
-    transition_record
+	let tmp = get_Index_Not_In_Quotes !i str '{' in
+	if (tmp >= (get_Index_Not_In_Quotes !i str ']' ) || tmp = -1) then
+		begin
+			i := get_Index_Not_In_Quotes !i str '}';
+			let (transition_record : Type.transition) = {
+				current_state = "";
+				read = '\000';
+				to_state = "";
+				write = '\000';
+				move = LEFT
+			} in
+			transition_record
+		end
+	else
+		begin
+			i := tmp;
+			let read = ((get_String str i).[0]) in
+			let to_state = (get_String str i) in
+			let write = (get_String str i).[0] in
+			let move = get_Move str i in
+			let (transition_record : Type.transition) = {
+				current_state = name;
+				read = read;
+				to_state = to_state;
+				write = write;
+				move = move
+			} in transition_record
+		end
 
 let rec loop_Transition str i lst name =
     let tran = create_Transition name str i in
