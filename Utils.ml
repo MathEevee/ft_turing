@@ -26,7 +26,9 @@ let open_File file_name =
 
 let get_Index_Not_In_Quotes start src c =
 	let rec loop_search src c i in_quotes =
-		if (String.get src i) = c && not in_quotes then
+        if i >= (String.length src) then
+            (-1)
+		else if (String.get src i) = c && not in_quotes then
 			i
 		else if (String.get src i) = '"' then
 			loop_search src c (i + 1) (not in_quotes)
@@ -67,3 +69,50 @@ let get_List_String str i =
     i := etmp + 1;
     lst
 
+let get_Str_transition str i =
+    i := get_Index_Not_In_Quotes !i str '"';
+    if !i = (-1) then
+        ""
+    else
+        begin
+            i := (get_Index_Not_In_Quotes !i str '"') + 1;
+            let etmp = get_Index_Not_In_Quotes !i str '"' in
+            let tmp = String.sub str !i (etmp - !i) in
+            i := etmp + 1;
+            tmp
+        end
+
+let get_Move str i =
+    if get_String str i = "RIGHT" then
+        Type.RIGHT
+    else
+        Type.LEFT
+
+let create_Transition name str i =
+    (* i := get_Index_Not_In_Quotes !i str '{'; *)
+    let (transition_record : Type.transition) = {
+        current_state = name;
+        read = (get_String str i).[0];
+        to_state = get_String str i;
+        write = (get_String str i).[0];
+        move = get_Move str i
+    } in
+    print_Transition transition_record;
+    transition_record
+
+let rec loop_Transition str i lst name =
+    let tran = create_Transition name str i in
+    if tran.read = '\000' then
+        lst
+    else
+        loop_Transition str i (lst @ [tran]) name
+
+let get_Transitions str i =
+    i := get_Index_Not_In_Quotes !i str '{';
+    let rec loop_Transitions str i lst =
+        let transition_name = get_Str_transition str i in
+        if transition_name = "" then
+            lst
+        else
+            loop_Transitions str i (loop_Transition str i lst transition_name)
+    in loop_Transitions str i []

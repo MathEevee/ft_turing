@@ -117,6 +117,7 @@ let parse_File file_content =
 		rec_json.states <- get_List_String file_content i;
 		rec_json.initial <- get_String file_content i;
 		rec_json.finals <- get_List_String file_content i;
+		rec_json.transitions <- get_Transitions file_content i; (*create transitions*)
 		if check_Alphabet rec_json.alphabet = false then
 			(false, rec_json)
 		else if check_Blank rec_json.blank rec_json.alphabet = false then

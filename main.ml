@@ -29,7 +29,8 @@ let () =
 			print_char '\n';
 			print_States rec_json.states;
 			print_Initial rec_json.initial;
-			print_Finals rec_json.finals
+			print_Finals rec_json.finals;
+			print_Transitions rec_json.transitions
 		end
 
 (*	let alphabet = ['1'; '.'; '-'; '='] in
