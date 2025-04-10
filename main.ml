@@ -1,4 +1,5 @@
 open Parsing
+open Utils
 open Machine
 open Print
 open Type

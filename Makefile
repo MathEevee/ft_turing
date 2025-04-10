@@ -1,6 +1,6 @@
 NAME = ft_turing
 
-OBJS = Print Machine Parsing
+OBJS = Print Machine Utils Parsing
 
 MLI_FILES = Type.mli
 MLI_FILES += $(OBJS:=.mli)
