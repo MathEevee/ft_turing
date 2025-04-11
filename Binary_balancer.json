@@ -1,0 +1,22 @@
+{
+	"name" : "binary_balancer",
+	"alphabet": [ "0","1", ".", "n"],
+	"blank" : ".",
+	"states" : ["search_one", "swap", "final", "HALT"],
+	"initial" : "search_one",
+	"finals" : [ "HALT" ],
+	"transitions" : {
+		"search_one" : [
+            { "read" : "0", "to_state": "search_one", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "swap", "write" : "0", "action" : "LEFT"},
+            { "read" : ".", "to_state": "final", "write" : "n", "action" : "RIGHT"}
+        ],
+        "swap" : [
+            { "read" : "0", "to_state": "swap", "write" : "1", "action" : "RIGHT"}
+
+        ],
+        "final" : [
+            { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"}
+        ]
+	}
+}
