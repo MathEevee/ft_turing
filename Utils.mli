@@ -16,4 +16,6 @@ val get_Move : string -> int ref -> Type.move
 
 val create_Transition : string -> string -> int ref -> Type.transition
 
+val loop_Transition : string -> int ref -> Type.transitions -> Type.state -> Type.transitions
+
 val get_Transitions : string -> int ref -> Type.transitions

@@ -15,7 +15,7 @@ let tr = ws ^ "{" ^ ws ^ "\"read\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
 		 "\"to_state\"" ^ dot ^ wd ^ ws ^ "," ^ ws ^
 		 "\"write\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
 		 "\"action\"" ^ dot ^ "\"\\(RIGHT\\|LEFT\\)\"" ^ ws ^
-		 "}"
+		 "}" ^ ws
 let trr = "\\(\\(" ^ tr ^ ",\\)*" ^ tr ^ "\\)"
 
 let ls = ws ^ wd ^ ws ^ dot ^ ws ^ "[" ^ ws ^ trr ^ ws ^ "]" ^ ws
@@ -97,6 +97,21 @@ let check_Finals finals states =
 			in check_Finals_In_States finals states
 		end
 
+let rec check_Transitions (transitions : Type.transitions) states alphabet =
+	match transitions with
+	| [] -> true
+	| head :: tail ->
+		if not (is_In head.current_state states) then
+			print_Error "Error : current_state not found in State lists"
+		else if not (is_In head.read alphabet) then
+			print_Error "Error : read not found in Alphabet"
+		else if not (is_In head.to_state states) then
+			print_Error "Error : to_state not found in State lists"
+		else if not (is_In head.write alphabet) then
+			print_Error "Error : write not found in Alphabet"
+		else
+			check_Transitions tail states alphabet
+
 let parse_File file_content =
 	let (rec_json : Type.json) = {
 			name = "";
@@ -127,6 +142,8 @@ let parse_File file_content =
 		else if check_Initial rec_json.initial rec_json.states = false then
 			(false, rec_json)
 		else if check_Finals rec_json.finals rec_json.states = false then
+			(false, rec_json)
+		else if check_Transitions rec_json.transitions rec_json.states rec_json.alphabet = false then
 			(false, rec_json)
 		else
 			(true, rec_json)
