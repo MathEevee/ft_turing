@@ -19,6 +19,9 @@ let print_Error error_message =
 	print_endline error_message;
 	false
 
+let print_Name name =
+	print_endline ("\x1b[38;5;103mName : " ^ name ^ "\x1b[0m")
+
 let print_Alphabet alphabet =
 	print_string "\x1b[38;5;103mAlphabet : [ ";
 	let rec print_Letter alphabet =
@@ -30,6 +33,11 @@ let print_Alphabet alphabet =
 							print_string ", ";
 							print_Letter tail
 	in print_Letter alphabet
+
+let print_Blank blank =
+	print_string "\x1b[38;5;103mBlank : ";
+	print_char blank;
+	print_endline "\x1b[0m"
 
 let print_States states =
 	print_string "\x1b[38;5;103mStates : [ ";

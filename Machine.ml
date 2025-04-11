@@ -1,10 +1,20 @@
 open Type
 
+let init_Machine (json : Type.json) tape = {
+	tape = tape;
+	head = 0;
+	size = Array.length tape;
+	blank = json.blank;
+	current_state = json.initial;
+	finals = json.finals;
+	transitions = json.transitions
+}
+
 let default_transition = {
     current_state = "";
     to_state = "";
-    read = ' ';
-    write = ' ';
+    read = '\000';
+    write = '\000';
     move = RIGHT;
 }
 

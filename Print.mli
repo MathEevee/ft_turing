@@ -2,7 +2,11 @@ val print_Help : unit -> unit
 
 val print_Error : string -> bool
 
+val print_Name : string -> unit
+
 val print_Alphabet : Type.alphabet -> unit
+
+val print_Blank : Type.blank -> unit
 
 val print_States : Type.states -> unit
 

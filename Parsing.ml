@@ -50,6 +50,9 @@ let check_Arg argc argv =
 	else
 		true
 
+let transform_Arg arg =
+	 Array.init (String.length arg) (String.get arg)
+
 let check_File_Format file_content =
 	let regex = Str.regexp reg_file in
 	if Str.string_match regex file_content 0 then
@@ -97,20 +100,27 @@ let check_Finals finals states =
 			in check_Finals_In_States finals states
 		end
 
-let rec check_Transitions (transitions : Type.transitions) states alphabet =
+let rec check_Transitions (transitions : Type.transitions) states alphabet finals final_exist =
 	match transitions with
-	| [] -> true
+	| [] -> if not final_exist then
+				print_Error "Error : Finals states doesn't found"
+			else
+				final_exist
 	| head :: tail ->
 		if not (is_In head.current_state states) then
-			print_Error "Error : current_state not found in State lists"
+			print_Error "Error : current_state not found in State list"
+		else if is_In head.current_state finals then
+			print_Error "Error : current_state found in Final list"
 		else if not (is_In head.read alphabet) then
 			print_Error "Error : read not found in Alphabet"
 		else if not (is_In head.to_state states) then
 			print_Error "Error : to_state not found in State lists"
 		else if not (is_In head.write alphabet) then
 			print_Error "Error : write not found in Alphabet"
+		else if is_In head.to_state finals || final_exist then
+			check_Transitions tail states alphabet finals true
 		else
-			check_Transitions tail states alphabet
+			check_Transitions tail states alphabet finals false
 
 let parse_File file_content =
 	let (rec_json : Type.json) = {
@@ -143,13 +153,7 @@ let parse_File file_content =
 			(false, rec_json)
 		else if check_Finals rec_json.finals rec_json.states = false then
 			(false, rec_json)
-		else if check_Transitions rec_json.transitions rec_json.states rec_json.alphabet = false then
+		else if check_Transitions rec_json.transitions rec_json.states rec_json.alphabet rec_json.finals false = false then
 			(false, rec_json)
 		else
 			(true, rec_json)
-
-(* val check_Transitions : string list -> bool * Type.Transitions *) (* ? *)
-
-(* val check_Parameter : string list -> Type.Alphabet *)
-
-(* val create_Transtition : Type.State -> Type.Letter -> Type.State -> Type.Letter -> Type.Move -> Transtion *)
