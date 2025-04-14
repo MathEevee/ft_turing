@@ -2,18 +2,24 @@
 	"name" : "binary_balancer",
 	"alphabet": [ "0","1", ".", "n"],
 	"blank" : ".",
-	"states" : ["search_one", "swap", "final", "HALT"],
+	"states" : ["search_one", "swap_zero", "swap_one","search_zero", "final", "HALT"],
 	"initial" : "search_one",
 	"finals" : [ "HALT" ],
 	"transitions" : {
 		"search_one" : [
+            { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"},
             { "read" : "0", "to_state": "search_one", "write" : "0", "action" : "RIGHT"},
-            { "read" : "1", "to_state": "swap", "write" : "0", "action" : "LEFT"},
-            { "read" : ".", "to_state": "final", "write" : "n", "action" : "RIGHT"}
+            { "read" : "1", "to_state": "swap_one", "write" : "0", "action" : "LEFT"}
         ],
-        "swap" : [
-            { "read" : "0", "to_state": "swap", "write" : "1", "action" : "RIGHT"}
-
+        "swap_one" : [
+            { "read" : "0", "to_state": "swap_zero", "write" : "1", "action" : "RIGHT"}
+        ],
+        "swap_zero" : [
+            { "read" : "0", "to_state": "swap_zero", "write" : "1", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "search_one", "write" : "0", "action" : "RIGHT"}
+        ],
+        "search_zero" : [
+            { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"}
         ],
         "final" : [
             { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"}
