@@ -122,6 +122,16 @@ let rec check_Transitions (transitions : Type.transitions) states alphabet final
 		else
 			check_Transitions tail states alphabet finals false
 
+let check_Arg_Alphabet arg alphabet =
+	let rec loop arg alphabet index =
+		if index >= (String.length arg) then
+			true
+		else if not (is_In (String.get arg index) alphabet) then
+			print_Error "Error : Letter in argument not found in alphabet"
+		else
+			loop arg alphabet (index + 1)
+	in loop arg alphabet 0
+
 let parse_File file_content =
 	let (rec_json : Type.json) = {
 			name = "";
@@ -142,7 +152,7 @@ let parse_File file_content =
 		rec_json.states <- get_List_String file_content i;
 		rec_json.initial <- get_String file_content i;
 		rec_json.finals <- get_List_String file_content i;
-		rec_json.transitions <- get_Transitions file_content i; (*create transitions*)
+		rec_json.transitions <- get_Transitions file_content i; (* create transitions *)
 		if check_Alphabet rec_json.alphabet = false then
 			(false, rec_json)
 		else if check_Blank rec_json.blank rec_json.alphabet = false then
