@@ -29,6 +29,7 @@ let () =
 			print_Initial rec_json.initial;
 			print_Finals rec_json.finals;
 			print_Transitions rec_json.transitions;
+			print_Decorator 50 "*";
 			let machine = init_Machine rec_json (transform_Arg argv.(2))
 			in
 			ft_Turing machine

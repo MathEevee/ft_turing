@@ -1,0 +1,40 @@
+{
+	"name" : "Palindrome",
+	"alphabet": [ "0" ],
+	"blank" : ".",
+	"states" : [ "HALT" ],
+	"initial" : "",
+	"finals" : [ "HALT" ],
+	"transitions" : {
+		"erase_zero" : [
+            { "read" : "0", "to_state": "go_right", "write" : ".", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "write_y", "write" : ".", "action" : "RIGHT"}
+        ],
+        "go_right" : [
+            { "read" : "0", "to_state": "go_right", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "go_right", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "erase_one", "write" : ".", "action" : "LEFT"}
+        ],
+        "erase_one" : [
+            { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "go_left", "write" : ".", "action" : "LEFT"},
+            { "read" : ".", "to_state": "write_n", "write" : ".", "action" : "RIGHT"}
+        ],
+        "go_left" : [
+            { "read" : "0", "to_state": "go_left", "write" : "0", "action" : "LEFT"},
+            { "read" : "1", "to_state": "go_left", "write" : "1", "action" : "LEFT"},
+            { "read" : ".", "to_state": "erase_zero", "write" : ".", "action" : "RIGHT"}
+        ],
+        "write_y" : [
+            { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "HALT", "write" : "y", "action" : "RIGHT"}
+        ],
+        "write_n" : [
+            { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "HALT", "write" : "n", "action" : "RIGHT"}
+        ]
+	}
+}
