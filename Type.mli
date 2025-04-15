@@ -10,7 +10,7 @@ type states = state list
 
 type finals = state list
 
-type move = LEFT | RIGHT
+type move = LEFT | RIGHT | NONE
 
 type transition = {
 	current_state : state;

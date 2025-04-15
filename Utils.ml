@@ -83,10 +83,13 @@ let get_Str_transition str i =
         end
 
 let get_Move str i =
-    if get_String str i = "RIGHT" then
+	let tmp = get_String str i in 
+    if tmp = "RIGHT" then
         Type.RIGHT
-    else
+    else if tmp = "LEFT" then
         Type.LEFT
+	else
+		Type.NONE
 
 let create_Transition name str i =
 	let tmp = get_Index_Not_In_Quotes !i str '{' in

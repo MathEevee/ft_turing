@@ -14,7 +14,7 @@ let ts = "\\[\\(\\(" ^ ws ^ wd ^ ws ^ ",\\)*" ^ ws ^ wd ^ ws ^ "\\)" ^ ws ^ "\\]
 let tr = ws ^ "{" ^ ws ^ "\"read\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
 		 "\"to_state\"" ^ dot ^ wd ^ ws ^ "," ^ ws ^
 		 "\"write\"" ^ dot ^ one ^ ws ^ "," ^ ws ^
-		 "\"action\"" ^ dot ^ "\"\\(RIGHT\\|LEFT\\)\"" ^ ws ^
+		 "\"action\"" ^ dot ^ wd ^ ws ^
 		 "}" ^ ws
 let trr = "\\(\\(" ^ tr ^ ",\\)*" ^ tr ^ "\\)"
 
@@ -119,15 +119,19 @@ let rec check_Transitions (transitions : Type.transitions) states alphabet final
 			print_Error "Error : write not found in Alphabet"
 		else if is_In head.to_state finals || final_exist then
 			check_Transitions tail states alphabet finals true
+		else if head.move = Type.NONE then
+			print_Error "Error : Bad move detected"
 		else
 			check_Transitions tail states alphabet finals false
 
-let check_Arg_Alphabet arg alphabet =
+let check_Arg_Alphabet arg alphabet blank =
 	let rec loop arg alphabet index =
 		if index >= (String.length arg) then
 			true
 		else if not (is_In (String.get arg index) alphabet) then
 			print_Error "Error : Letter in argument not found in alphabet"
+		else if (String.get arg index) = blank then
+			print_Error "Error : Letter in argument is blank character"
 		else
 			loop arg alphabet (index + 1)
 	in loop arg alphabet 0

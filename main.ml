@@ -18,7 +18,7 @@ let () =
 	let (parse_bool, rec_json) = parse_File filecontent in
 	if parse_bool = false then
 		exit 1
-	else if not (check_Arg_Alphabet argv.(2) rec_json.alphabet) then
+	else if not (check_Arg_Alphabet argv.(2) rec_json.alphabet rec_json.blank) then
 		exit 1
 	else
 		begin

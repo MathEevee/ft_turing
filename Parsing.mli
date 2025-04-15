@@ -16,6 +16,6 @@ val check_Finals : Type.states -> Type.states -> bool
 
 val check_Transitions : Type.transitions -> Type.states -> Type.alphabet -> Type.states -> bool -> bool
 
-val check_Arg_Alphabet : string -> Type.alphabet -> bool
+val check_Arg_Alphabet : string -> Type.alphabet -> Type.blank -> bool
 
 val parse_File : string -> bool * Type.json

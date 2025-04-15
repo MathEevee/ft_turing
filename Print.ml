@@ -6,6 +6,7 @@ let get_direction move =
     match move with
     | LEFT -> (-1)
     | RIGHT -> 1
+	| NONE -> 0
 
 let print_Help () =
 	print_endline "usage: ft_turing [-h] jsonfile input";

@@ -22,6 +22,7 @@ let get_direction move =
     match move with
     | LEFT -> (-1)
     | RIGHT -> 1
+	| NONE -> 0
 
 let rec is_Final_State c_state finals =
 	match finals with
