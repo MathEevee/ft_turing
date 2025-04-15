@@ -56,7 +56,7 @@ let apply_Transition machine n_transtion =
 
 let rec ft_Turing m = 
 	if (is_Final_State m.current_state m.finals) = true then
-		()
+		Print.print_End m
 	else
 		begin
 			let boolean, n_tran = (get_Next_State m.current_state m.transitions m.tape.(m.head)) in	

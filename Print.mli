@@ -25,3 +25,5 @@ val get_Start_Position : int -> int -> int
 val print_Colored_Char : string -> Type.letter -> unit
 
 val print_Tape : Type.machine -> Type.transition -> unit
+
+val print_End : Type.machine -> unit

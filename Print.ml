@@ -140,3 +140,27 @@ let print_Tape machine next_transition =
 	in loop_Print_Tape machine start the_end move; 
 	print_string "] | ";
 	print_Transition next_transition
+
+let print_End machine = 
+	let start = get_Start_Position display_len machine.head in
+	let the_end = start + display_len - (display_len mod 2) in
+
+	print_char '[';
+	let rec loop_Print_Tape machine index the_end =
+		if index <> the_end then
+			begin
+				if index = machine.head then
+					print_Colored_Char "\x1b[38;5;74m" machine.tape.(index)
+				else if index >= machine.size then
+					print_Colored_Char "\x1b[38;5;145m" machine.blank
+				else
+					print_Colored_Char "\x1b[38;5;145m" machine.tape.(index);
+				loop_Print_Tape machine (index + 1) the_end
+			end
+		else
+			()
+	in loop_Print_Tape machine start the_end; 
+	print_string "] | ";
+	print_string "\x1b[38;5;203m";
+	print_string machine.current_state;
+	print_endline "\x1b[0m";
