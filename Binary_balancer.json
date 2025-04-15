@@ -2,40 +2,44 @@
 	"name" : "binary_balancer",
 	"alphabet": [ "0","1", ".", "n","y"],
 	"blank" : ".",
-	"states" : ["phase_one", "phase_swap", "phase_two","phase_three", "HALT", "phase_four", "final"],
-	"initial" : "phase_one",
+	"states" : ["erase_zero", "go_right", "erase_one","go_left", "write_y", "write_n", "final","HALT"],
+	"initial" : "erase_zero",
 	"finals" : [ "HALT" ],
 	"transitions" : {
-		"phase_one" : [
-            { "read" : "0", "to_state": "phase_one", "write" : "0", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "phase_four", "write" : ".", "action" : "LEFT"},
-            { "read" : "1", "to_state": "phase_swap", "write" : "0", "action" : "LEFT"}
+		"erase_zero" : [
+            { "read" : "0", "to_state": "go_right", "write" : ".", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "write_y", "write" : ".", "action" : "RIGHT"}
         ],
-        "phase_swap" : [
-            { "read" : "0", "to_state": "phase_two", "write" : "1", "action" : "LEFT"},
-            { "read" : "1", "to_state": "phase_four", "write" : "1", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "phase_four", "write" : ".", "action" : "RIGHT"}
+        "go_right" : [
+            { "read" : "0", "to_state": "go_right", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "go_right", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "erase_one", "write" : ".", "action" : "LEFT"}
         ],
-        "phase_two" : [
-            { "read" : "0", "to_state": "phase_one", "write" : "0", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "phase_three", "write" : ".", "action" : "RIGHT"}
+        "erase_one" : [
+            { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "go_left", "write" : ".", "action" : "LEFT"},
+            { "read" : ".", "to_state": "write_n", "write" : ".", "action" : "RIGHT"}
         ],
-        "phase_three" : [
-            { "read" : ".", "to_state": "HALT", "write" : "y", "action" : "RIGHT"},
-            { "read" : "1", "to_state": "phase_three", "write" : "1", "action" : "RIGHT"},
-            { "read" : "0", "to_state": "phase_one", "write" : ".", "action" : "RIGHT"}
+        "go_left" : [
+            { "read" : "0", "to_state": "go_left", "write" : "0", "action" : "LEFT"},
+            { "read" : "1", "to_state": "go_left", "write" : "1", "action" : "LEFT"},
+            { "read" : ".", "to_state": "erase_zero", "write" : ".", "action" : "RIGHT"}
         ],
-        "phase_four" : [
-            { "read" : ".", "to_state": "final", "write" : "y", "action" : "RIGHT"},
-            { "read" : "1", "to_state": "final", "write" : "n", "action" : "RIGHT"},
-            { "read" : "0", "to_state": "final", "write" : "n", "action" : "RIGHT"}
+        "write_y" : [
+            { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "final", "write" : "y", "action" : "RIGHT"}
         ],
-        "final" : [
-            { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"},
-            { "read" : "1", "to_state": "final", "write" : "n", "action" : "RIGHT"},
-            { "read" : "0", "to_state": "final", "write" : "n", "action" : "RIGHT"},
-            { "read" : "n", "to_state": "HALT", "write" : "n", "action" : "RIGHT"}
+        "write_n" : [
+            { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "final", "write" : "n", "action" : "RIGHT"}
+        ],
+		 "final" : [
+            { "read" : "0", "to_state": "HALT", "write" : "0", "action" : "RIGHT"},
+            { "read" : "1", "to_state": "HALT", "write" : "1", "action" : "RIGHT"},
+            { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"}
         ]
-
 	}
 }
