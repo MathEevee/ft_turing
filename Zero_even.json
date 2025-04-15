@@ -2,21 +2,18 @@
 	"name" : "0even",
 	"alphabet": [ "0", ".", "n", "y"],
 	"blank" : ".",
-	"states" : ["even", "odd", "final","HALT"],
+	"states" : ["even", "odd", "HALT"],
 	"initial" : "even",
 	"finals" : [ "HALT" ],
 	"transitions" : {
 		"even" : [
             { "read" : "0", "to_state": "odd", "write" : "0", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "final", "write" : "y", "action" : "RIGHT"}
+            { "read" : ".", "to_state": "HALT", "write" : "y", "action" : "RIGHT"}
         ],
         "odd" : [
             { "read" : "0", "to_state": "even", "write" : "0", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "final", "write" : "n", "action" : "RIGHT"}
+            { "read" : ".", "to_state": "HALT", "write" : "n", "action" : "RIGHT"}
 
-        ],
-        "final" : [
-            { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"}
         ]
 	}
 }

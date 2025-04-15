@@ -2,7 +2,7 @@
 	"name" : "binary_balancer",
 	"alphabet": [ "0","1", ".", "n","y"],
 	"blank" : ".",
-	"states" : ["erase_zero", "go_right", "erase_one","go_left", "write_y", "write_n", "final","HALT"],
+	"states" : ["erase_zero", "go_right", "erase_one","go_left", "write_y", "write_n", "HALT"],
 	"initial" : "erase_zero",
 	"finals" : [ "HALT" ],
 	"transitions" : {
@@ -29,17 +29,12 @@
         "write_y" : [
             { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
             { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "final", "write" : "y", "action" : "RIGHT"}
+            { "read" : ".", "to_state": "HALT", "write" : "y", "action" : "RIGHT"}
         ],
         "write_n" : [
             { "read" : "0", "to_state": "write_n", "write" : "0", "action" : "RIGHT"},
             { "read" : "1", "to_state": "write_n", "write" : "1", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "final", "write" : "n", "action" : "RIGHT"}
-        ],
-		 "final" : [
-            { "read" : "0", "to_state": "HALT", "write" : "0", "action" : "RIGHT"},
-            { "read" : "1", "to_state": "HALT", "write" : "1", "action" : "RIGHT"},
-            { "read" : ".", "to_state": "HALT", "write" : ".", "action" : "RIGHT"}
+            { "read" : ".", "to_state": "HALT", "write" : "n", "action" : "RIGHT"}
         ]
 	}
 }
