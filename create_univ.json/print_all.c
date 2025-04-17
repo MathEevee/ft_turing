@@ -2,144 +2,6 @@
 #include <stdio.h>
 
 
-void print_line_erase(char c)
-{
-    int i = 32;
-
-    printf("\"erase_%c\": [\n", c);
-
-        // if (i != '.' && (( i >= 'A' &&  i <= 'Z') || ( i >= '0' &&  i <= '9') || ( i >= '0' &&  i <= '9')) )
-
-    while (i < 127)
-    {
-        if (( i >= 'A' &&  i <= 'Z') || ( i >= '0' &&  i <= '9') || ( i >= 'a' &&  i <= 'z'))
-        {
-            if (c == i)
-                printf("{ \"read\": \"%c\",  \"to_state\": \"go_left\", \"write\": \".\", \"action\": \"LEFT\" },\n", i);
-            else
-                printf("{ \"read\": \"%c\",  \"to_state\": \"write_n\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
-        }
-        i++;
-    }
-    if (c == 'z')
-        printf("{ \"read\": \".\",  \"to_state\": \"write_y\", \"write\": \".\", \"action\": \"RIGHT\" }\n]\n");
-    else
-        printf("{ \"read\": \".\",  \"to_state\": \"write_y\", \"write\": \".\", \"action\": \"RIGHT\" }\n],\n");
-}
-
-
-void print_line_go_right(char c)
-{
-    int i = 32;
-
-    printf("\"go_right_%c\": [\n", c);
-    while (i < 127)
-    {
-        if (i != '.' && (( i >= 'A' &&  i <= 'Z') || ( i >= '0' &&  i <= '9') || ( i >= 'a' &&  i <= 'z')))
-        {
-            printf("{ \"read\": \"%c\",  \"to_state\": \"go_right_%c\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, c, i);
-        }
-
-        i++;
-    }
-    printf("{ \"read\": \".\",  \"to_state\": \"erase_%c\", \"write\": \".\", \"action\": \"LEFT\" }\n],\n", c);
-}
-
-void write_n (void)
-{
-    int c = 32;
-    printf("\"write_n\" : [\n");
-    while (c < 127)
-    {
-        if (( c >= 'A' &&  c <= 'Z') || ( c >= '0' &&  c <= '9') || ( c >= 'a' &&  c <= 'z'))
-        {
-            printf("{ \"read\": \"%c\", \"to_state\": \"write_n\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", c,c);
-        }
-        c++;
-    }
-    printf("{ \"read\": \".\", \"to_state\": \"HALT\", \"write\": \"n\", \"action\": \"RIGHT\" }\n");
-    printf("],\n");
-}
-
-void write_y (void)
-{
-    int c = 32;
-    printf("\"write_y\" : [\n");
-    while (c < 127)
-    {
-        if (( c >= 'A' &&  c <= 'Z') || ( c >= '0' &&  c <= '9') || ( c >= 'a' &&  c <= 'z'))
-        {
-            printf("{ \"read\": \"%c\", \"to_state\": \"write_n\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", c,c);
-        }
-        c++;
-    }
-    printf("{ \"read\": \".\", \"to_state\": \"HALT\", \"write\": \"y\", \"action\": \"RIGHT\" }\n");
-    printf("],\n");
-}
-
-void find_letter (void)
-{
-    int c = 32;
-    printf("\"find_letter\" : [\n");
-    while (c < 127)
-    {
-        if (( c >= 'A' &&  c <= 'Z') || ( c >= '0' &&  c <= '9') || ( c >= 'a' &&  c <= 'z'))
-        {
-            printf("{ \"read\": \"%c\", \"to_state\": \"go_right_%c\", \"write\": \".\", \"action\": \"RIGHT\" },\n", c,c);
-        }
-        c++;
-    }
-    printf("{ \"read\": \".\", \"to_state\": \"write_y\", \"write\": \".\", \"action\": \"RIGHT\" }\n");
-    printf("],\n");
-}
-
-void go_left (void)
-{
-    int c = 32;
-    printf("\"go_left\" : [\n");
-    while (c < 127)
-    {
-        if (( c >= 'A' &&  c <= 'Z') || ( c >= '0' &&  c <= '9') || ( c >= 'a' &&  c <= 'z'))
-        {
-            printf("{ \"read\": \"%c\", \"to_state\": \"go_left\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", c,c);
-        }
-        c++;
-    }
-    printf("{ \"read\": \".\", \"to_state\": \"find_letter\", \"write\": \".\", \"action\": \"RIGHT\" }\n");
-    printf("],\n");
-}
-void go_und_input (char c)
-{
-
-    printf ("{ \"read\": \"%c\", \"to_state\": \"trans\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", c, c);
-    // { "read": "1", "to_state": "trans", "write": "1", "action": "RIGHT" },
-
-}
-
-// int main (void)
-// {
-//     int i = 32;
-//     // write_n();
-//     // write_y();
-//     // find_letter();
-//     // go_left();
-//     while (i < 127)
-//     {
-//         // if (( i >= 'A' &&  i <= 'Z') || ( i >= 'a' &&  i <= 'z') || ( i >= '0' &&  i <= '9') || i == '#' || i == '.' || i == '=' || i == '+')
-//         // if (( i >= 'a' &&  i <= 'z') || i == '1' || i == '#' || i == '.' || i == '=' || i == '+' || i == '|' || i == '_' || i == 'H' || i == 'S' || i == 'L' || i == 'R')
-//         if (( i >= 'a' &&  i <= 'z'))
-//         {
-//             // printf("\"go_right_%c\", \"erase_%c\",\n", i, i);
-//             // print_line_go_right(i);
-//             go_und_input(i);
-//             // print_line_erase(i);
-//             // printf("\"%c\", ", i);
-//         }
-//     //     // printf("\"go_right_\\%c\", \"erase_\\%c\",\n", i, i);
-//         i++;
-//     }
-// }
-
 void go_back_memory (void)
 {
     printf("\t\t\"go_back_memory\" : [\n");
@@ -371,7 +233,7 @@ void go_back_curr_transition(void)
     {
         if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
             || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
-            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_back_curr_transition\", \"write\": \"%c\", \"action\": \"LEFT\" }\n", i ,i);
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_back_curr_transition\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i ,i);
         i++;
     }
     printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"skip_read\", \"write\": \"_\", \"action\": \"RIGHT\" }\n");
@@ -463,6 +325,298 @@ void next_state(void)
     printf("\t\t],\n");
 }
 
+void write_curr_state_c(char c)
+{
+    if ((c >= '0' && c <= '9') || c == '-' || c == '+' || c == '='
+        || c == '_' || c == '-' || c == '|' || c == '#')
+        return;
+    int i = 32;
+    printf("\t\t\"write_curr_state_%c\" : [\n", c);
+    while (i < 127)
+    {
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+        || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"write_curr_state_%c\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i,c, i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"put_back_%c\", \"write\": \"%c\", \"action\": \"RIGHT\" }\n", c, c);
+    printf("\t\t],\n");
+}
+
+void put_back_c(char c)
+{
+    if ((c >= '0' && c <= '9') || c == '+' || c == '=' || c == '.'
+        || c == '_' || c == '-' || c == '|' || c == '#')
+        return;
+    int i = 32;
+    printf("\t\t\"put_back_%c\" : [\n", c);
+    while (i < 127)
+    {
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+            || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"put_back_%c\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,c, i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"get_trans\", \"write\": \"%c\", \"action\": \"RIGHT\" }\n", c);
+    printf("\t\t],\n");
+}
+
+void get_trans()
+{
+    int i = 32;
+    printf("\t\t\"get_trans\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') 
+            || i == '+' || i == '-' || i ==  '.')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"get_dir_%c\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i, i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"=\", \"to_state\": \"get_dir_=\", \"write\": \"=\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+
+void get_dir_c(char input)
+{
+    if ((input >= 'a' && input <= 'z')
+    || input == 'R' || input ==  'L' || input ==  'H' || input ==  '#' || input ==  '|' || input == '_' || input == '#')
+        return;
+    printf("\t\t\"get_dir_%c\" : [\n", input);
+    //R
+    printf("\t\t\t{ \"read\": \"R\", \"to_state\": \"apply_%c_R\", \"write\": \"R\", \"action\": \"LEFT\" },\n", input);
+    //L
+    printf("\t\t\t{ \"read\": \"L\", \"to_state\": \"apply_%c_L\", \"write\": \"L\", \"action\": \"LEFT\" }\n", input);
+
+    printf("\t\t],\n");
+}
+
+void apply_c_move(char input, char move)
+{
+    int i = 32;
+    printf("\t\t\"apply_%c_%c\" : [\n", input, move);
+    while (i < 127)
+    {
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+            || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"apply_%c_%c\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i,input, move, i);
+        i++;
+    }
+    if (move == 'R')
+        printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"get_head\", \"write\": \"%c\", \"action\": \"RIGHT\" }\n", input);
+    else
+        printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"get_head\", \"write\": \"%c\", \"action\": \"LEFT\" }\n", input);
+    printf("\t\t],\n");
+}
+
+
+void apply_c (char input)
+{
+    if ((input >= 'a' && input <= 'z')
+    || input == 'R' || input ==  'L' || input ==  'H' || input ==  '#' || input ==  '|' || input == '_' || input == '#')
+        return;
+    apply_c_move(input, 'R');
+    apply_c_move(input, 'L');
+}
+
+void put_back_from_memory(void)
+{
+    int i = 32;
+    printf("\t\t\"put_back_from_memory\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') 
+            || i == '+' || i ==  '=' || i == '-' || i ==  '.')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"put_back_from_memory\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"what_to_wrote\", \"write\": \"_\", \"action\": \"LEFT\" }\n");
+    printf("\t\t],\n");
+}
+
+void what_to_wrote(void)
+{
+    int i = 32;
+    printf("\t\t\"what_to_wrote\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') 
+            || i == '+' || i == '-' || i ==  '.')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"write_%c\", \"write\": \"_\", \"action\": \"LEFT\" },\n", i,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"=\", \"to_state\": \"write_=\", \"write\": \"_\", \"action\": \"LEFT\" }\n");
+    printf("\t\t],\n");
+}
+
+void write_c(char c)
+{
+    int i = 32;
+    printf("\t\t\"write_%c\" : [\n", c);
+    while (i < 127)
+    {
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+            || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"write_%c\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i, c,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"HALT\", \"write\": \"%c\", \"action\": \"RIGHT\" }\n", c);
+    printf("\t\t],\n");
+}
+
+/* ---------------------------------------- PARSING ----------------------------------------*/
+
+void start()
+{
+    int i = 32;
+    printf("\t\t\"start\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') 
+            || i == '+' || i == '-' || i ==  '.')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"check_input\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"=\", \"to_state\": \"check_input\", \"write\": \"=\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void check_input(void)
+{
+    int i = 32;
+    printf("\t\t\"check_input\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') 
+            || i == '+' || i ==  '=' || i == '-' || i ==  '.')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"check_input\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"#\", \"to_state\": \"check_curr_state\", \"write\": \"#\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void check_curr_state()
+{
+    int i = 'a';
+    printf("\t\t\"check_curr_state\" : [\n");
+    while (i < 'z')
+    {
+        printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"transition_#\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
+        i++;
+     }
+    printf("\t\t\t{ \"read\": \"z\", \"to_state\": \"transition_#\", \"write\": \"z\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void transition_hash()
+{
+    printf("\t\t\"transition_#\" : [\n");
+    printf("\t\t\t{ \"read\": \"#\", \"to_state\": \"check_transition\", \"write\": \"#\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void check_transition()
+{
+    printf("\t\t\"check_transition\" : [\n");
+    printf("\t\t\t{ \"read\": \"|\", \"to_state\": \"is_read\", \"write\": \"|\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void is_read()
+{
+    int i = 32;
+    printf("\t\t\"check_input\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') 
+            || i == '+' || i == '-' || i ==  '.')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"is_curr_state\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"=\", \"to_state\": \"is_curr_state\", \"write\": \"=\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void is_curr_state(void)
+{
+    int i = 'a';
+    printf("\t\t\"is_curr_state\" : [\n");
+    while (i < 'z')
+    {
+        printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"is_to_state\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"z\", \"to_state\": \"is_to_state\", \"write\": \"z\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void is_to_state()
+{
+    int i = 'a';
+    printf("\t\t\"is_curr_state\" : [\n");
+    while (i <= 'z')
+    {
+        printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"is_write\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"H\", \"to_state\": \"is_write\", \"write\": \"H\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void is_write()
+{
+    int i = 32;
+    printf("\t\t\"is_write\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') 
+            || i == '+' || i == '-' || i ==  '.')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"is_move\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"=\", \"to_state\": \"is_move\", \"write\": \"=\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void is_move()
+{
+    printf("\t\t\"is_move\" : [\n");
+    printf("\t\t\t{ \"read\": \"R\", \"to_state\": \"memory_hash\", \"write\": \"R\", \"action\": \"RIGHT\" },\n");
+    printf("\t\t\t{ \"read\": \"L\", \"to_state\": \"memory_hash\", \"write\": \"L\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void memory_hash()
+{
+    printf("\t\t\"memory_hash\" : [\n");
+    printf("\t\t\t{ \"read\": \"|\", \"to_state\": \"is_read\", \"write\": \"|\", \"action\": \"RIGHT\" },\n");
+    printf("\t\t\t{ \"read\": \"#\", \"to_state\": \"is_end\", \"write\": \"#\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
+void is_end()
+{
+    printf("\t\t\"is_end\" : [\n");
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"go_start_tape\", \"write\": \"_\", \"action\": \"LEFT\" }\n");
+    printf("\t\t],\n");
+}
+
+void go_start_tape()
+{
+    int i = 32;
+    printf("\t\t\"go_start_tape\" : [\n");
+    while (i < 127)
+    {
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+        || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_start_tape\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i, i);
+        i++;
+    }
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"get_head\", \"write\": \"_\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
 int main ()
 {
     int i = 32;
@@ -482,6 +636,24 @@ int main ()
     skip_curr_state();
     skip_bis();
     next_state();
+    get_trans();
+    put_back_from_memory();
+    what_to_wrote();
+
+
+    start();
+    check_input();
+    check_curr_state();
+    transition_hash();
+    check_transition();
+    is_read();
+    is_curr_state();
+    is_to_state();
+    is_write();
+    is_move();
+    memory_hash();
+    is_end();
+    go_start_tape();
     while (i < 127)
     {
         if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
@@ -491,6 +663,11 @@ int main ()
             copy_(i);
             get_c_in_memory(i);
             get_c(i);
+            write_curr_state_c(i);
+            put_back_c(i);
+            get_dir_c(i);
+            apply_c(i);
+            write_c(i);
         }
         i++;
     }
