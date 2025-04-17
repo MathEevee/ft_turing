@@ -378,3 +378,254 @@ next_state -> [
 	move : L
 	}	
 ]*/
+
+write_curr_state_%c (state + H) -> [
+	{read : * (sauf _)
+	to_state : write_curr_state_%c (read)
+	write : * (sauf _)
+	move : L
+	}
+
+	|
+	{read : _
+	to_state : put_back_%c
+	write : %c
+	move : R
+	}
+	|
+]
+
+put_back_%c (state + H) -> [
+	{read : * (sauf _)
+	to_state : put_back_%c (read)
+	write : * (sauf _)
+	move : R
+	}
+
+	|
+	{read : _
+	to_state : get_trans
+	write : %c
+	move : R
+	}
+	|
+]
+
+get_trans -> [
+	{read : (input)
+	to_state : get_dir_%c (input)
+	write : (input)
+	move : R
+	}
+]
+
+get_dir_%c -> [
+	{read : (R L)
+	to_state : apply_%c_%c (le second %c est R ou L)
+	write : (R L)
+	move : L
+	}
+]
+
+apply_%c_R (1er = input R) -> [
+	{read : *
+	to_state : apply_%c_R (elle meme)
+	write : *
+	move : L
+	}
+
+	|
+	{read : _
+	to_state : get_head
+	write : %c
+	move : R
+	}
+	|
+]
+
+apply_%c_L (1er = input | 2 = Move) -> [
+	{read : *
+	to_state : apply_%c_L (elle meme)
+	write : *
+	move : L
+	}
+
+	|
+	{read : _
+	to_state : get_head
+	write : %c
+	move : L
+	}
+	|
+]
+
+put_back_from_memory -> [
+	{read : * (sauf _)
+	to_state : put_back_from_memory
+	write : * (sauf _)
+	move : R
+	}
+
+	|
+	{read : _
+	to_state : what_to_wrote
+	write : _
+	move : L
+	}
+	|
+]
+
+what_to_wrote -> [
+	{read : (input)
+	to_state : write_%c
+	write : _ 
+	move : L
+	}
+]
+
+write_%c -> [
+	{read : * (sauf _)
+	to_state : write_%c
+	write : * (sauf _)
+	move : L
+	}
+
+	|
+	{read : _
+	to_state : HALT
+	write : %c
+	move : R
+	}
+	|
+]
+
+-------- parsing -------
+
+start -> [
+	{read : (input)
+	to_state : check_input
+	write : (input)
+	move : R
+	}
+]
+
+check_input -> [
+	{read : (input)
+	to_state : check_input
+	write : (input)
+	move : R
+	}
+
+	|
+	{read : #
+	to_state : check_curr_state
+	write : #
+	move : R
+	}
+	|
+
+]
+
+check_curr_state -> [
+	{read : (state (pas H))
+	to_state : transition_#
+	write : (state (pas H))
+	move : R
+	}
+
+]
+
+transition_# -> [
+	{read : #
+	to_state : check_transition
+	write : #
+	move : R
+	}
+]
+
+check_transition -> [
+	{read : |
+	to_state : is_read
+	write : |
+	move : R
+	}
+]
+
+is_read -> [
+	{read : (input)
+	to_state : is_curr_state
+	write : (input)
+	move : R
+	}
+]
+
+is_curr_state -> [
+	{read : (state (pas H))
+	to_state : is_to_state
+	write : (state (pas H))
+	move : R
+	}
+]
+
+is_to_state -> [
+	{read : (state + H)
+	to_state : is_write
+	write : (state + H)
+	move : R
+	}
+]
+
+is_write -> [
+	{read : (input)
+	to_state : is_move
+	write : (input)
+	move : R
+	}
+]
+
+is_move -> [
+	{read : R ou L
+	to_state : memory_#
+	write : R ou L
+	move : R
+	}
+]
+
+memory_# -> [
+	{read : |
+	to_state : is_read
+	write : |
+	move : R
+	}
+	|
+	{read : #
+	to_state : is_end
+	write : #
+	move : R
+	}
+	|
+]
+
+is_end -> [
+	{read : (blank) _
+	to_state : go_start_tape
+	write : (blank) _
+	move : L
+	}
+]
+
+is_end -> [
+	{read : *
+	to_state : is_end
+	write : *
+	move : L
+	}
+	|
+	{read : _
+	to_state : get_head
+	write : _
+	move : R
+	}
+	|
+]
+
