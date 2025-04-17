@@ -1,0 +1,380 @@
+{
+	"name" : "universel_turing_machine",
+	"alphabet": ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+                    "1", "+", "=", ".",
+                    "R", "L", "H",
+                    "#", "|","_"],
+	"blank" : "_",
+	"states" : ["HALT"],
+	"initial" : "",
+	"finals" : [ "HALT" ],
+	"transitions" : {
+	}
+}
+
+input:
+[0->9]+=.-
+
+states : 
+[a->z, H]
+
+move:
+LR
+
+struct:
+#| (blank)
+
+blank:
+_
+
+*:
+all
+
+
+/*
+get_head ->[{ 
+	read : (input)
+	to_state : save_(input)
+	write : (input)
+	move : R}(pour tous les input)]
+
+	|
+	read: _ 
+	to_state: save_. 
+	write: .
+	move: RIGHT 
+	|
+
+	|
+    read: #
+	to_state: copy_.
+	write: #
+	move: LEFT
+	|
+
+*/
+
+/*
+save_(input,state) -> [
+	{read : *
+	to_state : save_(input,state)
+	write : * (lui meme ce qu'il lit)
+	move : R
+
+	|
+	read : _
+	to_state : go_back_memory
+	write : (this char to save_(input,state))
+	move : L
+	|
+}
+] (pour tous les input et stats)
+*/
+
+/*
+go_back_memory -> [
+	{read : *
+	to_state : go_back_memory
+	write : * (lui meme ce qu'il lit)
+	move : L
+	}
+
+	|
+	read : #
+	to_state : go_back_transition
+	write : #
+	move : L
+	|
+
+]
+*/
+/*
+go_back_transition -> [
+	{read : *
+	to_state : go_back_transition
+	write : * (lui meme ce qu'il lit)
+	move : L
+	}
+	|
+	read : (blank)
+	to_state : search_next_trans
+	write : |
+	move : L
+	|
+
+	|
+	read : #
+	to_state : go_back_curr_state
+	write : #
+	move : L
+	|
+
+
+]
+*/
+
+
+/*
+go_back_curr_state -> [
+	{read : *
+	to_state : go_back_curr_state
+	write : * (lui meme ce qu'il lit)
+	move : L
+	}
+	
+	|
+	read : (blank)
+	to_state : search_next_trans
+	write : (blank)
+	move : L
+	|
+
+	|
+	read : #
+	to_state : go_back_input
+	write : #
+	move : L
+	|
+
+]
+*/
+
+
+/*
+go_back_input -> [
+	{read : *
+	to_state : go_back_input
+	write : * (lui meme ce qu'il lit)
+	move : L
+	}
+	
+	|
+	read : (blank)
+	to_state : get_curr_state
+	write : (blank)
+	move : L
+	|
+
+]
+*/
+/*
+copy_(%c input) -> [
+{
+	{read : (input)
+	to_state : copy_(read input)
+	write : * (%c)
+	move : L
+	}
+
+	|
+	{read : _ (blank)
+	to_state : go_end_input
+	write : * (%c)
+	move : R
+	}
+	|
+}
+] (chaque input)
+*/
+/*
+go_end_input -> [
+	{read : (input)
+	to_state : go_end_input
+	write : * (lui meme ce qu'il lit)
+	move : R
+	}
+	|
+	{read : #
+	to_state : get_head
+	write : #
+	move : L
+	}
+	|
+]
+*/
+/*
+get_curr_state -> [
+	{read : (states)
+	to_state : save_%c
+	write : _
+	move : R
+	}
+
+	|
+	{read : H
+	to_state : put_back_from_memory
+	write : H
+	move : R
+	}
+	|
+]*/
+
+/*
+search_next_state -> [
+	{read : (input + state + move + H)
+	to_state : search_next_state
+	write : (input + state + move + H) (lui meme ce qu'il lit)
+	move : R
+	}
+
+	|
+	{read : |
+	to_state : compare_state
+	write : _
+	move : R
+	}
+	|
+
+]*/
+/*
+compare_state -> [
+	{read : (input + states)
+	to_state : get_(%c input + states)_in_memory
+	write : (input + states) (lui meme ce qu'il lit)
+	move : R
+	}
+]*/
+
+/*get_%c_in_memory -> [
+	{read : * (sauf blank _)
+	to_state : get_(%c input + states)_in_memory
+	write : * (sauf blank _)
+	move : R
+	}
+
+	|
+	{read : #
+	to_state : get_%c
+	write : #
+	move : R
+	}
+	|
+]*/
+/*
+get_%c -> [
+	|
+	{read : %c != input
+	to_state : get_%c
+	write : %c != input
+	move : R
+	}
+	|
+	|
+	{read : %c == input
+	to_state : go_back_curr_transition
+	write : %c == input
+	move : L
+	}
+	|
+	|
+	{read : _
+	to_state : go_back_memory
+	write : _
+	move : L
+	}
+	|
+
+
+
+
+	|
+	{read : %c != state
+	to_state : get_%c
+	write : %c != state
+	move : R
+	}
+	|
+	|
+	{read : %c == state
+	to_state : erase_memory
+	write : %c == state
+	move : L
+	}
+	|
+
+
+]
+*/
+/*
+go_back_curr_transition -> [
+	{read : * (sauf blank)
+	to_state : go_back_curr_transition
+	write : * (sauf blank)
+	move : L
+	}
+
+	|
+	{read : _
+	to_state : skip_read
+	write : _
+	move : R
+	}
+	|
+]
+*/
+/*
+skip_read -> [
+	{read : input
+	to_state : compare_state
+	write : input
+	move : R
+	}
+]
+*/
+/*
+erase_memory ->[
+	{read : (input)
+	to_state : erase_memory
+	write : _ (blank)
+	move : L
+	}
+
+	|
+	{read : #
+	to_state : get_next_state
+	write : # (blank)
+	move : L
+	}
+	|
+]*/
+/*
+get_next_state -> [
+	{read : * (sauf _)
+	to_state : get_next_state
+	write : * (sauf _)
+	move : L
+	}
+
+	|
+	{read : _
+	to_state : skip_curr_state
+	write :  |
+	move : R
+	}
+	|
+]*/
+/*
+skip_curr_state -> [
+	{read : input
+	to_state : skip_bis
+	write : input
+	move : R
+	}
+]*/
+/*
+skip_bis -> [
+	{read : input
+	to_state : next_state
+	write : input
+	move : R
+	}
+]
+*/
+/*
+next_state -> [
+	{read : state + H
+	to_state : write_curr_state_%c (read)
+	write : _
+	move : L
+	}	
+]*/
