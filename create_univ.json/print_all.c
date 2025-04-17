@@ -451,11 +451,13 @@ void what_to_wrote(void)
 
 void write_c(char c)
 {
+    if ((c >= 'a' && c <= 'z') || c == 'R' || c ==  'L' || c ==  'H' || c ==  '#' || c ==  '|' || c == '_')
+        return;
     int i = 32;
     printf("\t\t\"write_%c\" : [\n", c);
     while (i < 127)
     {
-        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9')
             || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"write_%c\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i, c,i);
         i++;
