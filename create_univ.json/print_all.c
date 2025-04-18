@@ -310,7 +310,7 @@ void get_next_state()
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"get_next_state\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i, i);
         i++;
     }
-    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"skip_curr_state\", \"write\": \"_\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"skip_curr_state\", \"write\": \"|\", \"action\": \"RIGHT\" }\n");
     printf("\t\t],\n");
 }
 

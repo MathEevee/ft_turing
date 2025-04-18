@@ -727,7 +727,7 @@
 			{ "read": "y", "to_state": "get_next_state", "write": "y", "action": "LEFT" },
 			{ "read": "z", "to_state": "get_next_state", "write": "z", "action": "LEFT" },
 			{ "read": "|", "to_state": "get_next_state", "write": "|", "action": "LEFT" },
-			{ "read": "_", "to_state": "skip_curr_state", "write": "_", "action": "RIGHT" }
+			{ "read": "_", "to_state": "skip_curr_state", "write": "|", "action": "RIGHT" }
 		],
 		"skip_curr_state" : [
 			{ "read": "+", "to_state": "skip_bis", "write": "+", "action": "RIGHT" },
