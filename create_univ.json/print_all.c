@@ -94,7 +94,8 @@ void save_(char input, bool states)
     int i = 32;
     while (i < 127)
     {
-        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') || i == '-' || i ==  '.' || i == '+' || i == '=')
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+        || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|')
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"save_%c\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, input,i);
         i++;
     }
