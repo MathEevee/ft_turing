@@ -1,0 +1,33 @@
+Input for "universal" machine
+
+Machine in machine alphabet
+Input letter [0 -> 9, +, -, =]
+Blank Character .
+State [a -> z]
+Final H
+Move R for Right and L for Left
+
+machine_input#start_state#|transition_1|transtion_2|...#
+
+Transition :
+Read : [0 -> 9, +, -, =, .]
+Curr_State : [a -> z]
+Next_State : [a -> z + H]
+Write : [0 -> 9, +, -, =, .]
+Move : [R, L]
+
+If there is not next state for the running machine, the "universal_machine" will write "There is no next state, it's impossible to transition"
+
+Simple_Test
+010#z#|0zz1R|1zz1R|.zH.R#
+
+Transform every 0 to 1.
+
+Unary_Add
+1+1=#a#|1ab1R|1bb1R|+bc+R|1cd1R|1dd1R|=de=R|.ef.L|=ff.L|1ff1L|+ff1L|.fg.R|1gH.R#
+
+Binary_balancer
+000111#z#|0zr.R|1zn1R|.zy.R|0rr0R|1rr1R|.re.L|0en0R|1el.L|.en.R|0ll0L|1ll1L|.lz.R|0yn0R|1yn1R|.yH+R|0nn0R|1nn1R|.nH-R#
+
+Zero_even
+0000#e#|0eo0R|.eH+R|0oe0R|.oH-R#

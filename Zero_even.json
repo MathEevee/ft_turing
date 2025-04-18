@@ -13,7 +13,6 @@
         "odd" : [
             { "read" : "0", "to_state": "even", "write" : "0", "action" : "RIGHT"},
             { "read" : ".", "to_state": "HALT", "write" : "n", "action" : "RIGHT"}
-
         ]
 	}
 }
