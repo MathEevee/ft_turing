@@ -226,7 +226,7 @@ void get_c(char c, bool states)
         return;
     if (states == true)
     {
-        printf("\"get_%c_state\",\n", c);
+        printf("\"get_%c\",\n", c);
         return;
     }
     int i = 32;
