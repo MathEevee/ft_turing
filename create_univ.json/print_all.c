@@ -414,10 +414,7 @@ void get_dir_c(char input, bool states)
     || input == 'R' || input ==  'L' || input ==  'H' || input ==  '#' || input ==  '|' || input == '_' || input == '#')
         return;
     if (states == true)
-    {
-        printf("\"get_dir_%c\",\n", input);
         return;
-    }
     printf("\t\t\"get_dir_%c\" : [\n", input);
     //R
     printf("\t\t\t{ \"read\": \"R\", \"to_state\": \"apply_%c_R\", \"write\": \"R\", \"action\": \"LEFT\" },\n", input);
@@ -431,11 +428,7 @@ void apply_c_move(char input, char move, bool states)
 {
     int i = 32;
     if (states == true)
-    {
-        printf("\"apply_%c_R\",\n", input);
-        printf("\"apply_%c_L\",\n", input);
         return;
-    }
 
     printf("\t\t\"apply_%c_%c\" : [\n", input, move);
     while (i < 127)
@@ -458,6 +451,12 @@ void apply_c (char input, bool states)
     if ((input >= 'a' && input <= 'z')
     || input == 'R' || input ==  'L' || input ==  'H' || input ==  '#' || input ==  '|' || input == '_' || input == '#')
         return;
+    if (states == true)
+    {
+        printf("\"apply_%c_R\",\n", input);
+        printf("\"apply_%c_L\",\n", input);
+        return;
+    }
     apply_c_move(input, 'R', states);
     apply_c_move(input, 'L', states);
 }
