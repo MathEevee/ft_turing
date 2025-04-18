@@ -151,15 +151,15 @@ void get_curr_state (void)
     printf("\t\t],\n");
 }
 
-void search_next_state(void)
+void search_next_transition(void)
 {
     int i = 32;
-    printf("\t\t\"search_next_state\" : [\n");
+    printf("\t\t\"search_next_transition\" : [\n");
     while (i < 127)
     {
         if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
         || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H')
-            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"search_next_state\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"search_next_transition\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
         i++;
     }
     printf("\t\t\t{ \"read\": \"|\", \"to_state\": \"compare_state\", \"write\": \"_\", \"action\": \"RIGHT\" }\n");
@@ -414,7 +414,10 @@ void get_dir_c(char input, bool states)
     || input == 'R' || input ==  'L' || input ==  'H' || input ==  '#' || input ==  '|' || input == '_' || input == '#')
         return;
     if (states == true)
+    {
+        printf("\"get_dir_%c\",\n", input);
         return;
+    }
     printf("\t\t\"get_dir_%c\" : [\n", input);
     //R
     printf("\t\t\t{ \"read\": \"R\", \"to_state\": \"apply_%c_R\", \"write\": \"R\", \"action\": \"LEFT\" },\n", input);
@@ -677,7 +680,7 @@ void print_name_function(void)
     printf("\"get_head\",\n");
     printf("\"go_end_input\",\n");
     printf("\"get_curr_state\",\n");
-    printf("\"search_next_state\",\n");
+    printf("\"search_next_transition\",\n");
     printf("\"compare_state\",\n");
     printf("\"go_back_curr_transition\",\n");
     printf("\"skip_read\",\n");
@@ -714,7 +717,7 @@ int main ()
     // get_head();
     // go_end_input();
     // get_curr_state();
-    // search_next_state();
+    // search_next_transition();
     // compare_state();
     // go_back_curr_transition();
     // skip_read();
