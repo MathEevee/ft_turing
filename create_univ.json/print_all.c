@@ -349,7 +349,7 @@ void next_state(void)
 void write_curr_state_c(char c, bool states)
 {
     if ((c >= '0' && c <= '9') || c == '-' || c == '+' || c == '='
-        || c == '_' || c == '-' || c == '|' || c == '#')
+        || c == '_' || c == '-' || c == '|' || c == '#' || c == '.' || c == 'R' || c == 'L')
         return;
     if (states == true)
     {
