@@ -20,7 +20,7 @@
 "start",
 "check_input",
 "check_curr_state",
-"transition_hash",
+"transition_#",
 "check_transition",
 "is_read",
 "is_curr_state",

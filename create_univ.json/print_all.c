@@ -695,7 +695,7 @@ void print_name_function(void)
     printf("\"start\",\n");
     printf("\"check_input\",\n");
     printf("\"check_curr_state\",\n");
-    printf("\"transition_hash\",\n");
+    printf("\"transition_#\",\n");
     printf("\"check_transition\",\n");
     printf("\"is_read\",\n");
     printf("\"is_curr_state\",\n");
