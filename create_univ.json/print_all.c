@@ -14,7 +14,8 @@ void go_back_memory (void)
             i++;
             continue;
         }
-        if ((i >= 'a' && i <= 'z') || i == 'H' || i == 'R' || i == 'L' || i == '_' || i == '|' )
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+        || i == '+' || i ==  '=' || i == '-' || i ==  '.')
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_back_memory\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i,i);
         i++;
     }

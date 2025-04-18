@@ -295,9 +295,20 @@
 	"finals" : [ "HALT" ],
 	"transitions" : {
 		"go_back_memory" : [
-			{ "read": "H", "to_state": "go_back_memory", "write": "H", "action": "LEFT" },
-			{ "read": "L", "to_state": "go_back_memory", "write": "L", "action": "LEFT" },
-			{ "read": "R", "to_state": "go_back_memory", "write": "R", "action": "LEFT" },
+			{ "read": "+", "to_state": "go_back_memory", "write": "+", "action": "LEFT" },
+			{ "read": "-", "to_state": "go_back_memory", "write": "-", "action": "LEFT" },
+			{ "read": ".", "to_state": "go_back_memory", "write": ".", "action": "LEFT" },
+			{ "read": "0", "to_state": "go_back_memory", "write": "0", "action": "LEFT" },
+			{ "read": "1", "to_state": "go_back_memory", "write": "1", "action": "LEFT" },
+			{ "read": "2", "to_state": "go_back_memory", "write": "2", "action": "LEFT" },
+			{ "read": "3", "to_state": "go_back_memory", "write": "3", "action": "LEFT" },
+			{ "read": "4", "to_state": "go_back_memory", "write": "4", "action": "LEFT" },
+			{ "read": "5", "to_state": "go_back_memory", "write": "5", "action": "LEFT" },
+			{ "read": "6", "to_state": "go_back_memory", "write": "6", "action": "LEFT" },
+			{ "read": "7", "to_state": "go_back_memory", "write": "7", "action": "LEFT" },
+			{ "read": "8", "to_state": "go_back_memory", "write": "8", "action": "LEFT" },
+			{ "read": "9", "to_state": "go_back_memory", "write": "9", "action": "LEFT" },
+			{ "read": "=", "to_state": "go_back_memory", "write": "=", "action": "LEFT" },
 			{ "read": "a", "to_state": "go_back_memory", "write": "a", "action": "LEFT" },
 			{ "read": "b", "to_state": "go_back_memory", "write": "b", "action": "LEFT" },
 			{ "read": "c", "to_state": "go_back_memory", "write": "c", "action": "LEFT" },
@@ -324,7 +335,6 @@
 			{ "read": "x", "to_state": "go_back_memory", "write": "x", "action": "LEFT" },
 			{ "read": "y", "to_state": "go_back_memory", "write": "y", "action": "LEFT" },
 			{ "read": "z", "to_state": "go_back_memory", "write": "z", "action": "LEFT" },
-			{ "read": "|", "to_state": "go_back_memory", "write": "|", "action": "LEFT" },
 			{ "read": "#", "to_state": "go_back_transition", "write": "#", "action": "LEFT" }
 		],
 		"go_back_transition" : [
