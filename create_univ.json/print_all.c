@@ -87,7 +87,7 @@ void save_(char input, bool states)
         return;
     if (states == true)
     {
-        printf("\"save_%c\",\n", input);
+        printf("\t\t\t\"save_%c\",\n", input);
         return;
     } 
     printf("\t\t\"save_%c\" : [\n", input);
@@ -109,7 +109,7 @@ void copy_(char input, bool states)
         return;
     if (states == true)
     {
-        printf("\"copy_%c\",\n", input);
+        printf("\t\t\t\"copy_%c\",\n", input);
         return;
     } 
     printf("\t\t\"copy_%c\" : [\n", input);
@@ -187,7 +187,7 @@ void get_c_in_memory (char c, bool states)
         return;
     if (states == true)
     {
-        printf("\"get_%c_in_memory\",\n", c);
+        printf("\t\t\t\"get_%c_in_memory\",\n", c);
         return;
     } 
     int i = 32;
@@ -226,7 +226,7 @@ void get_c(char c, bool states)
         return;
     if (states == true)
     {
-        printf("\"get_%c\",\n", c);
+        printf("\t\t\t\"get_%c\",\n", c);
         return;
     }
     int i = 32;
@@ -353,7 +353,7 @@ void write_curr_state_c(char c, bool states)
         return;
     if (states == true)
     {
-        printf("\"write_curr_state_%c\",\n", c);
+        printf("\t\t\t\"write_curr_state_%c\",\n", c);
         return;
     }
     int i = 32;
@@ -376,7 +376,7 @@ void put_back_c(char c, bool states)
         return;
     if (states == true)
     {
-        printf("\"put_back_%c\",\n", c);
+        printf("\t\t\t\"put_back_%c\",\n", c);
         return;
     }
     int i = 32;
@@ -389,7 +389,10 @@ void put_back_c(char c, bool states)
         i++;
     }
     printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"get_trans\", \"write\": \"%c\", \"action\": \"RIGHT\" }\n", c);
-    printf("\t\t],\n");
+    if (c == 'z')
+        printf("\t\t]\n");
+    else
+        printf("\t\t],\n");
 }
 
 void get_trans()
@@ -415,7 +418,7 @@ void get_dir_c(char input, bool states)
         return;
     if (states == true)
     {
-        printf("\"get_dir_%c\",\n", input);
+        printf("\t\t\t\"get_dir_%c\",\n", input);
         return;
     }
     printf("\t\t\"get_dir_%c\" : [\n", input);
@@ -456,8 +459,8 @@ void apply_c (char input, bool states)
         return;
     if (states == true)
     {
-        printf("\"apply_%c_R\",\n", input);
-        printf("\"apply_%c_L\",\n", input);
+        printf("\t\t\t\"apply_%c_R\",\n", input);
+        printf("\t\t\t\"apply_%c_L\",\n", input);
         return;
     }
     apply_c_move(input, 'R', states);
@@ -500,7 +503,7 @@ void write_c(char c, bool states)
         return;
     if (states == true)
     {
-        printf("\"write_%c\",\n", c);
+        printf("\t\t\t\"write_%c\",\n", c);
         return;
     } 
     int i = 32;
@@ -578,7 +581,7 @@ void check_transition()
 void is_read()
 {
     int i = 32;
-    printf("\t\t\"check_input\" : [\n");
+    printf("\t\t\"is_read\" : [\n");
     while (i < 127)
     {
         if ((i >= '0' && i <= '9') 
@@ -606,7 +609,7 @@ void is_curr_state(void)
 void is_to_state()
 {
     int i = 'a';
-    printf("\t\t\"is_curr_state\" : [\n");
+    printf("\t\t\"is_to_state\" : [\n");
     while (i <= 'z')
     {
         printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"is_write\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i,i);
@@ -673,42 +676,73 @@ void go_start_tape()
 
 void print_name_function(void)
 {
-    printf("\"go_back_memory\",\n");
-    printf("\"go_back_transition\",\n");
-    printf("\"go_back_curr_state\",\n");
-    printf("\"go_back_input\",\n");
-    printf("\"get_head\",\n");
-    printf("\"go_end_input\",\n");
-    printf("\"get_curr_state\",\n");
-    printf("\"search_next_trans\",\n");
-    printf("\"compare_state\",\n");
-    printf("\"go_back_curr_transition\",\n");
-    printf("\"skip_read\",\n");
-    printf("\"erase_memory\",\n");
-    printf("\"get_next_state\",\n");
-    printf("\"skip_curr_state\",\n");
-    printf("\"skip_bis\",\n");
-    printf("\"next_state\",\n");
-    printf("\"get_trans\",\n");
-    printf("\"put_back_from_memory\",\n");
-    printf("\"what_to_wrote\",\n");
-    printf("\"start\",\n");
-    printf("\"check_input\",\n");
-    printf("\"check_curr_state\",\n");
-    printf("\"transition_#\",\n");
-    printf("\"check_transition\",\n");
-    printf("\"is_read\",\n");
-    printf("\"is_curr_state\",\n");
-    printf("\"is_to_state\",\n");
-    printf("\"is_write\",\n");
-    printf("\"is_move\",\n");
-    printf("\"memory_hash\",\n");
-    printf("\"is_end\",\n");
-    printf("\"go_start_tape\",\n");
+    printf("\" go_back_memory\", \n");
+    printf("\t\t\t\"go_back_transition\", \n");
+    printf("\t\t\t\"go_back_curr_state\", \n");
+    printf("\t\t\t\"go_back_input\", \n");
+    printf("\t\t\t\"get_head\", \n");
+    printf("\t\t\t\"go_end_input\", \n");
+    printf("\t\t\t\"get_curr_state\", \n");
+    printf("\t\t\t\"search_next_trans\", \n");
+    printf("\t\t\t\"compare_state\", \n");
+    printf("\t\t\t\"go_back_curr_transition\", \n");
+    printf("\t\t\t\"skip_read\", \n");
+    printf("\t\t\t\"erase_memory\", \n");
+    printf("\t\t\t\"get_next_state\", \n");
+    printf("\t\t\t\"skip_curr_state\", \n");
+    printf("\t\t\t\"skip_bis\", \n");
+    printf("\t\t\t\"next_state\", \n");
+    printf("\t\t\t\"get_trans\", \n");
+    printf("\t\t\t\"put_back_from_memory\", \n");
+    printf("\t\t\t\"what_to_wrote\", \n");
+    printf("\t\t\t\"start\", \n");
+    printf("\t\t\t\"check_input\", \n");
+    printf("\t\t\t\"check_curr_state\", \n");
+    printf("\t\t\t\"transition_#\", \n");
+    printf("\t\t\t\"check_transition\", \n");
+    printf("\t\t\t\"is_read\", \n");
+    printf("\t\t\t\"is_curr_state\", \n");
+    printf("\t\t\t\"is_to_state\", \n");
+    printf("\t\t\t\"is_write\", \n");
+    printf("\t\t\t\"is_move\", \n");
+    printf("\t\t\t\"memory_hash\", \n");
+    printf("\t\t\t\"is_end\", \n");
+    printf("\t\t\t\"go_start_tape\", \n");
 }
+
+void format_json_print()
+{
+    printf("{\n\t\"name\" : \"universel_turing_machine\",\n");
+    printf("\t\"alphabet\" : [");
+    for (int i = 'a'; i <= 'z'; i++)
+    {
+        printf("\"%c\", ", i);
+    }
+    printf("\n\t\t\t\t\t");
+    for (int i = '0'; i <= '9'; i++)
+    {
+        printf("\"%c\", ", i);
+    }
+    printf("\"+\", ");
+    printf("\"=\", ");
+    printf("\".\", ");
+    printf("\n\t\t\t\t\t");
+    printf("\"H\", ");
+    printf("\"L\", ");
+    printf("\"R\", ");
+    printf("\n\t\t\t\t\t");
+    printf("\"#\", ");
+    printf("\"|\", ");
+    printf("\"_\"],\n");
+    printf("\t\"blank\" : \"_\",\n");
+    printf("\t\"states\" : [");
+} 
 
 int main ()
 {
+
+    format_json_print();
+
     int i = 32;
     print_name_function();
     while (i < 127)
@@ -728,8 +762,10 @@ int main ()
         }
         i++;
     }
-
-    printf("\n\n\n\n");
+    printf("\t\t\t\"HALT\" ],\n");
+    printf("\t\"initial\" : \"start\",\n");
+    printf("\t\"finals\" : [ \"HALT\" ],\n");
+    printf("\t\"transitions\" : {\n");
 
     go_back_memory();
     go_back_transition();
@@ -782,4 +818,6 @@ int main ()
         }
         i++;
     }
+    printf("\t}\n");
+    printf("}\n");
 }
