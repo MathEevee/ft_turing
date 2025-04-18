@@ -79,4 +79,4 @@ re : fclean all
 
 reocc : fclean byte
 
-.PHONY: all clean fclean re depend native byte
+.PHONY: all clean fclean re reocc depend native byte

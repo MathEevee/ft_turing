@@ -83,11 +83,11 @@ let get_Str_transition str i =
         end
 
 let get_Move str i =
-	let tmp = get_String str i in 
-    if tmp = "RIGHT" then
-        Type.RIGHT
+	let tmp = get_String str i in
+	if tmp = "RIGHT" then
+		Type.RIGHT
     else if tmp = "LEFT" then
-        Type.LEFT
+		Type.LEFT
 	else
 		Type.NONE
 

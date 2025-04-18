@@ -31,8 +31,6 @@ let reg_file = "\\{" ^ ws ^ "\"name\"" ^ dot ^ wd ^ en ^
 			"\\}" ^ ws ^
 			"\\}"
 
-let regex_tab = "\\(\"\\)?" ^ ws ^ "\\(,\\)?" ^ ws ^ "\"" ^ ws
-
 let check_Arg argc argv =
 	if argc = 2 && (argv.(1) = "--help" || argv.(1) = "-h") then
 		begin
