@@ -710,55 +710,12 @@ void print_name_function(void)
 int main ()
 {
     int i = 32;
-    // go_back_memory();
-    // go_back_transition();
-    // go_back_curr_state();
-    // go_back_input();
-    // get_head();
-    // go_end_input();
-    // get_curr_state();
-    // search_next_trans();
-    // compare_state();
-    // go_back_curr_transition();
-    // skip_read();
-    // erase_memory();
-    // get_next_state();
-    // skip_curr_state();
-    // skip_bis();
-    // next_state();
-    // get_trans();
-    // put_back_from_memory();
-    // what_to_wrote();
-
-
-    // start();
-    // check_input();
-    // check_curr_state();
-    // transition_hash();
-    // check_transition();
-    // is_read();
-    // is_curr_state();
-    // is_to_state();
-    // is_write();
-    // is_move();
-    // memory_hash();
-    // is_end();
-    // go_start_tape();
     print_name_function();
     while (i < 127)
     {
         if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
             || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|' || i ==  '_')
         {
-            // save_(i, false);
-            // copy_(i, false);
-            // get_c_in_memory(i, false);
-            // get_c(i, false);
-            // write_curr_state_c(i, false);
-            // put_back_c(i, false);
-            // get_dir_c(i, false);
-            // apply_c(i, false);
-            // write_c(i, false);
             save_(i, true);
             copy_(i, true);
             get_c_in_memory(i, true);
@@ -768,6 +725,60 @@ int main ()
             get_dir_c(i, true);
             apply_c(i, true);
             write_c(i, true);
+        }
+        i++;
+    }
+
+    printf("\n\n\n\n");
+
+    go_back_memory();
+    go_back_transition();
+    go_back_curr_state();
+    go_back_input();
+    get_head();
+    go_end_input();
+    get_curr_state();
+    search_next_trans();
+    compare_state();
+    go_back_curr_transition();
+    skip_read();
+    erase_memory();
+    get_next_state();
+    skip_curr_state();
+    skip_bis();
+    next_state();
+    get_trans();
+    put_back_from_memory();
+    what_to_wrote();
+    start();
+    check_input();
+    check_curr_state();
+    transition_hash();
+    check_transition();
+    is_read();
+    is_curr_state();
+    is_to_state();
+    is_write();
+    is_move();
+    memory_hash();
+    is_end();
+    go_start_tape();
+    i = 32;
+
+    while (i < 127)
+    {
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+            || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|' || i ==  '_')
+        {
+            save_(i, false);
+            copy_(i, false);
+            get_c_in_memory(i, false);
+            get_c(i, false);
+            write_curr_state_c(i, false);
+            put_back_c(i, false);
+            get_dir_c(i, false);
+            apply_c(i, false);
+            write_c(i, false);
         }
         i++;
     }
