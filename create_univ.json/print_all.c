@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 
 void go_back_memory (void)
@@ -80,10 +81,15 @@ void get_head(void)
     printf("\t\t],\n");
 }
 
-void save_(char input)
+void save_(char input, bool states)
 {
     if (input == '#' || input == '|' || input == '_')
         return;
+    if (states == true)
+    {
+        printf("\"save_%c\",\n", input);
+        return;
+    } 
     printf("\t\t\"save_%c\" : [\n", input);
     int i = 32;
     while (i < 127)
@@ -97,10 +103,15 @@ void save_(char input)
 
 }
 
-void copy_(char input)
+void copy_(char input, bool states)
 {
     if (input == '#' || input == '|' || (input >= 'a' && input <= 'z') || input == '_')
         return;
+    if (states == true)
+    {
+        printf("\"copy_%c\",\n", input);
+        return;
+    } 
     printf("\t\t\"copy_%c\" : [\n", input);
     int i = 32;
     while (i < 127)
@@ -170,10 +181,15 @@ void compare_state(void)
     printf("\t\t],\n");
 }
 
-void get_c_in_memory (char c)
+void get_c_in_memory (char c, bool states)
 {
     if (c == '#' || c == '|' || c == '_')
         return;
+    if (states == true)
+    {
+        printf("\"get_%c_in_memory\",\n", c);
+        return;
+    } 
     int i = 32;
     printf("\t\t\"get_%c_in_memory\" : [\n", c);
     while (i < 127)
@@ -187,7 +203,7 @@ void get_c_in_memory (char c)
     printf("\t\t],\n");
 }
 
-void get_c_state(char c, char i)
+void get_c_state(char c, char i, bool states)
 {
     if (c == i)
         printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"erase_memory\", \"write\": \"_\", \"action\": \"LEFT\" },\n", c);
@@ -195,7 +211,7 @@ void get_c_state(char c, char i)
         printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"get_%c\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, c, i);
 }
 
-void get_c_input(char c, char i)
+void get_c_input(char c, char i, bool states)
 {
     if (c == i)
         printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_back_curr_transition\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i, c);
@@ -204,19 +220,24 @@ void get_c_input(char c, char i)
 
 }
 
-void get_c(char c)
+void get_c(char c, bool states)
 {
     if (c == '#' || c == '|' || c == '_' || c == 'R' || c == 'L' || c == 'H')
         return;
+    if (states == true)
+    {
+        printf("\"get_%c_state\",\n", c);
+        return;
+    }
     int i = 32;
     printf("\t\t\"get_%c\" : [\n", c);
     while (i < 127)
     {
         if ((i >= 'a' && i <= 'z'))
-            get_c_state(c, i);
+            get_c_state(c, i, states);
         else if ((i >= '0' && i <= '9') 
             || i == '+' || i ==  '=' || i == '-' || i ==  '.')
-            get_c_input(c, i);
+            get_c_input(c, i, states);
         i++;
     }
     printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"go_back_memory\", \"write\": \"_\", \"action\": \"LEFT\" }\n");
@@ -325,11 +346,16 @@ void next_state(void)
     printf("\t\t],\n");
 }
 
-void write_curr_state_c(char c)
+void write_curr_state_c(char c, bool states)
 {
     if ((c >= '0' && c <= '9') || c == '-' || c == '+' || c == '='
         || c == '_' || c == '-' || c == '|' || c == '#')
         return;
+    if (states == true)
+    {
+        printf("\"write_curr_state_%c\",\n", c);
+        return;
+    }
     int i = 32;
     printf("\t\t\"write_curr_state_%c\" : [\n", c);
     while (i < 127)
@@ -343,11 +369,16 @@ void write_curr_state_c(char c)
     printf("\t\t],\n");
 }
 
-void put_back_c(char c)
+void put_back_c(char c, bool states)
 {
     if ((c >= '0' && c <= '9') || c == '+' || c == '=' || c == '.'
         || c == '_' || c == '-' || c == '|' || c == '#')
         return;
+    if (states == true)
+    {
+        printf("\"put_back_%c\",\n", c);
+        return;
+    }
     int i = 32;
     printf("\t\t\"put_back_%c\" : [\n", c);
     while (i < 127)
@@ -377,11 +408,16 @@ void get_trans()
 }
 
 
-void get_dir_c(char input)
+void get_dir_c(char input, bool states)
 {
     if ((input >= 'a' && input <= 'z')
     || input == 'R' || input ==  'L' || input ==  'H' || input ==  '#' || input ==  '|' || input == '_' || input == '#')
         return;
+    if (states == true)
+    {
+        printf("\"get_dir_%c\",\n", input);
+        return;
+    }
     printf("\t\t\"get_dir_%c\" : [\n", input);
     //R
     printf("\t\t\t{ \"read\": \"R\", \"to_state\": \"apply_%c_R\", \"write\": \"R\", \"action\": \"LEFT\" },\n", input);
@@ -391,9 +427,16 @@ void get_dir_c(char input)
     printf("\t\t],\n");
 }
 
-void apply_c_move(char input, char move)
+void apply_c_move(char input, char move, bool states)
 {
     int i = 32;
+    if (states == true)
+    {
+        printf("\"apply_%c_R\",\n", input);
+        printf("\"apply_%c_L\",\n", input);
+        return;
+    }
+
     printf("\t\t\"apply_%c_%c\" : [\n", input, move);
     while (i < 127)
     {
@@ -410,13 +453,13 @@ void apply_c_move(char input, char move)
 }
 
 
-void apply_c (char input)
+void apply_c (char input, bool states)
 {
     if ((input >= 'a' && input <= 'z')
     || input == 'R' || input ==  'L' || input ==  'H' || input ==  '#' || input ==  '|' || input == '_' || input == '#')
         return;
-    apply_c_move(input, 'R');
-    apply_c_move(input, 'L');
+    apply_c_move(input, 'R', states);
+    apply_c_move(input, 'L', states);
 }
 
 void put_back_from_memory(void)
@@ -449,10 +492,15 @@ void what_to_wrote(void)
     printf("\t\t],\n");
 }
 
-void write_c(char c)
+void write_c(char c, bool states)
 {
     if ((c >= 'a' && c <= 'z') || c == 'R' || c ==  'L' || c ==  'H' || c ==  '#' || c ==  '|' || c == '_')
         return;
+    if (states == true)
+    {
+        printf("\"write_%c\",\n", c);
+        return;
+    } 
     int i = 32;
     printf("\t\t\"write_%c\" : [\n", c);
     while (i < 127)
@@ -619,57 +667,105 @@ void go_start_tape()
     printf("\t\t],\n");
 }
 
+
+
+void print_name_function(void)
+{
+    printf("\"go_back_memory\",\n");
+    printf("\"go_back_transition\",\n");
+    printf("\"go_back_curr_state\",\n");
+    printf("\"go_back_input\",\n");
+    printf("\"get_head\",\n");
+    printf("\"go_end_input\",\n");
+    printf("\"get_curr_state\",\n");
+    printf("\"search_next_state\",\n");
+    printf("\"compare_state\",\n");
+    printf("\"go_back_curr_transition\",\n");
+    printf("\"skip_read\",\n");
+    printf("\"erase_memory\",\n");
+    printf("\"get_next_state\",\n");
+    printf("\"skip_curr_state\",\n");
+    printf("\"skip_bis\",\n");
+    printf("\"next_state\",\n");
+    printf("\"get_trans\",\n");
+    printf("\"put_back_from_memory\",\n");
+    printf("\"what_to_wrote\",\n");
+    printf("\"start\",\n");
+    printf("\"check_input\",\n");
+    printf("\"check_curr_state\",\n");
+    printf("\"transition_hash\",\n");
+    printf("\"check_transition\",\n");
+    printf("\"is_read\",\n");
+    printf("\"is_curr_state\",\n");
+    printf("\"is_to_state\",\n");
+    printf("\"is_write\",\n");
+    printf("\"is_move\",\n");
+    printf("\"memory_hash\",\n");
+    printf("\"is_end\",\n");
+    printf("\"go_start_tape\",\n");
+}
+
 int main ()
 {
     int i = 32;
-    go_back_memory();
-    go_back_transition();
-    go_back_curr_state();
-    go_back_input();
-    get_head();
-    go_end_input();
-    get_curr_state();
-    search_next_state();
-    compare_state();
-    go_back_curr_transition();
-    skip_read();
-    erase_memory();
-    get_next_state();
-    skip_curr_state();
-    skip_bis();
-    next_state();
-    get_trans();
-    put_back_from_memory();
-    what_to_wrote();
+    // go_back_memory();
+    // go_back_transition();
+    // go_back_curr_state();
+    // go_back_input();
+    // get_head();
+    // go_end_input();
+    // get_curr_state();
+    // search_next_state();
+    // compare_state();
+    // go_back_curr_transition();
+    // skip_read();
+    // erase_memory();
+    // get_next_state();
+    // skip_curr_state();
+    // skip_bis();
+    // next_state();
+    // get_trans();
+    // put_back_from_memory();
+    // what_to_wrote();
 
 
-    start();
-    check_input();
-    check_curr_state();
-    transition_hash();
-    check_transition();
-    is_read();
-    is_curr_state();
-    is_to_state();
-    is_write();
-    is_move();
-    memory_hash();
-    is_end();
-    go_start_tape();
+    // start();
+    // check_input();
+    // check_curr_state();
+    // transition_hash();
+    // check_transition();
+    // is_read();
+    // is_curr_state();
+    // is_to_state();
+    // is_write();
+    // is_move();
+    // memory_hash();
+    // is_end();
+    // go_start_tape();
+    print_name_function();
     while (i < 127)
     {
         if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
             || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '#' || i ==  '|' || i ==  '_')
         {
-            save_(i);
-            copy_(i);
-            get_c_in_memory(i);
-            get_c(i);
-            write_curr_state_c(i);
-            put_back_c(i);
-            get_dir_c(i);
-            apply_c(i);
-            write_c(i);
+            // save_(i, false);
+            // copy_(i, false);
+            // get_c_in_memory(i, false);
+            // get_c(i, false);
+            // write_curr_state_c(i, false);
+            // put_back_c(i, false);
+            // get_dir_c(i, false);
+            // apply_c(i, false);
+            // write_c(i, false);
+            save_(i, true);
+            copy_(i, true);
+            get_c_in_memory(i, true);
+            get_c(i, true);
+            write_curr_state_c(i, true);
+            put_back_c(i, true);
+            get_dir_c(i, true);
+            apply_c(i, true);
+            write_c(i, true);
         }
         i++;
     }
