@@ -676,7 +676,7 @@ void go_start_tape()
 
 void print_name_function(void)
 {
-    printf("\" go_back_memory\", \n");
+    printf(" \"go_back_memory\", \n");
     printf("\t\t\t\"go_back_transition\", \n");
     printf("\t\t\t\"go_back_curr_state\", \n");
     printf("\t\t\t\"go_back_input\", \n");
@@ -724,6 +724,7 @@ void format_json_print()
         printf("\"%c\", ", i);
     }
     printf("\"+\", ");
+    printf("\"-\", ");
     printf("\"=\", ");
     printf("\".\", ");
     printf("\n\t\t\t\t\t");
