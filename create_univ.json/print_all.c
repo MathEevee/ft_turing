@@ -48,7 +48,7 @@ void go_back_curr_state (void)
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_back_curr_state\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i,i);
         i++;
     }
-    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"search_next_trans\", \"write\": \"_\", \"action\": \"RIGHT\" },\n");
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"skip_#\", \"write\": \"_\", \"action\": \"RIGHT\" },\n");
     printf("\t\t\t{ \"read\": \"#\", \"to_state\": \"go_back_input\", \"write\": \"#\", \"action\": \"LEFT\" }\n");
     printf("\t\t],\n");
 }
@@ -147,6 +147,13 @@ void get_curr_state (void)
     while (i <= 'z')
     {
         printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"save_%c\", \"write\": \"_\", \"action\": \"RIGHT\" },\n", i, i);
+        i++;
+    }
+    i = 32;
+    while (i < 127)
+    {
+        if ((i >= '0' && i <= '9') || i == '-' || i ==  '.' || i == '+' || i == '=' || i == '#')
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"get_curr_state\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
         i++;
     }
     printf("\t\t\t{ \"read\": \"H\", \"to_state\": \"put_back_from_memory\", \"write\": \"H\", \"action\": \"RIGHT\" }\n");
@@ -674,6 +681,13 @@ void go_start_tape()
     printf("\t\t],\n");
 }
 
+void skip_hash()
+{
+    printf("\t\t\"skip_#\" : [\n");
+    printf("\t\t\t{ \"read\": \"#\", \"to_state\": \"search_next_trans\", \"write\": \"#\", \"action\": \"RIGHT\" }\n");
+    printf("\t\t],\n");
+}
+
 
 
 void print_name_function(void)
@@ -710,6 +724,7 @@ void print_name_function(void)
     printf("\t\t\t\"memory_hash\", \n");
     printf("\t\t\t\"is_end\", \n");
     printf("\t\t\t\"go_start_tape\", \n");
+    printf("\t\t\t\"skip_#\", \n");
 }
 
 void format_json_print()
@@ -789,6 +804,7 @@ int main ()
     get_trans();
     put_back_from_memory();
     what_to_wrote();
+    skip_hash();
     start();
     check_input();
     check_curr_state();

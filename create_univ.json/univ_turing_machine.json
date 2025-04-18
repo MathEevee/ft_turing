@@ -124,7 +124,7 @@ go_back_curr_state -> [
 	
 	|
 	read : (blank)
-	to_state : search_next_trans
+	to_state : skip_#
 	write : (blank)
 	move : L
 	|
@@ -136,8 +136,8 @@ go_back_curr_state -> [
 	move : L
 	|
 
-]
-*/
+]*/
+
 
 
 /*
@@ -502,7 +502,16 @@ write_%c -> [
 	|
 ]
 	*/
+/*
+skip_# -> [
+	{read : #
+	to_state : search_next_trans
+	write : #
+	move : R
+	}
 
+]
+*/
 -------- parsing -------
 /*
 start -> [
