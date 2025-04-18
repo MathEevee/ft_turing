@@ -151,15 +151,15 @@ void get_curr_state (void)
     printf("\t\t],\n");
 }
 
-void search_next_transition(void)
+void search_next_trans(void)
 {
     int i = 32;
-    printf("\t\t\"search_next_transition\" : [\n");
+    printf("\t\t\"search_next_trans\" : [\n");
     while (i < 127)
     {
         if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
         || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H')
-            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"search_next_transition\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"search_next_trans\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
         i++;
     }
     printf("\t\t\t{ \"read\": \"|\", \"to_state\": \"compare_state\", \"write\": \"_\", \"action\": \"RIGHT\" }\n");
@@ -680,7 +680,7 @@ void print_name_function(void)
     printf("\"get_head\",\n");
     printf("\"go_end_input\",\n");
     printf("\"get_curr_state\",\n");
-    printf("\"search_next_transition\",\n");
+    printf("\"search_next_trans\",\n");
     printf("\"compare_state\",\n");
     printf("\"go_back_curr_transition\",\n");
     printf("\"skip_read\",\n");
@@ -717,7 +717,7 @@ int main ()
     // get_head();
     // go_end_input();
     // get_curr_state();
-    // search_next_transition();
+    // search_next_trans();
     // compare_state();
     // go_back_curr_transition();
     // skip_read();
