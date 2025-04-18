@@ -28,7 +28,8 @@ void go_back_transition (void)
     int i = 32;
     while (i < 127)
     {
-        if ((i >= 'a' && i <= 'z') || i == 'H' || i == 'R' || i == 'L' || i == '|')
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+        || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '|')
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_back_transition\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i,i);
         i++;
     }
@@ -43,7 +44,7 @@ void go_back_curr_state (void)
     int i = 32;
     while (i < 127)
     {
-        if ((i >= 'a' && i <= 'z') || i == 'H')
+        if ((i >= 'a' && i <= 'z') || i ==  'H')
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"go_back_curr_state\", \"write\": \"%c\", \"action\": \"LEFT\" },\n", i,i);
         i++;
     }
