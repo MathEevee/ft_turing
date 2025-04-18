@@ -483,8 +483,8 @@ void put_back_from_memory(void)
     printf("\t\t\"put_back_from_memory\" : [\n");
     while (i < 127)
     {
-        if ((i >= '0' && i <= '9') 
-            || i == '+' || i ==  '=' || i == '-' || i ==  '.')
+        if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
+        || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H' || i ==  '|' || i ==  '#')
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"put_back_from_memory\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i);
         i++;
     }
