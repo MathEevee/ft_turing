@@ -35,13 +35,13 @@ all
 get_head ->[{ 
 	read : (input)
 	to_state : save_(input)
-	write : (input)
+	write : _
 	move : R}(pour tous les input)]
 
 	|
 	read: _ 
 	to_state: save_. 
-	write: .
+	write: _
 	move: RIGHT 
 	|
 

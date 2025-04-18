@@ -75,10 +75,10 @@ void get_head(void)
     while (i < 127)
     {
         if ((i >= '0' && i <= '9') || i ==  '.' || i == '+' || i == '-' || i == '.' || i == '=')
-            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"save_%c\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, i,i);
+            printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"save_%c\", \"write\": \"_\", \"action\": \"RIGHT\" },\n", i, i);
         i++;
     }
-    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"save_.\", \"write\": \".\", \"action\": \"RIGHT\" },\n");
+    printf("\t\t\t{ \"read\": \"_\", \"to_state\": \"save_.\", \"write\": \"_\", \"action\": \"RIGHT\" },\n");
     printf("\t\t\t{ \"read\": \"#\", \"to_state\": \"copy_.\", \"write\": \"#\", \"action\": \"LEFT\" }\n");
     printf("\t\t],\n");
 }
