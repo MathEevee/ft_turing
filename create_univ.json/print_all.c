@@ -183,7 +183,7 @@ void compare_state(void)
 
 void get_c_in_memory (char c, bool states)
 {
-    if (c == '#' || c == '|' || c == '_')
+    if (c == '#' || c == '|' || c == '_' || c == 'H' || c == 'R' || c == 'L')
         return;
     if (states == true)
     {
@@ -195,7 +195,7 @@ void get_c_in_memory (char c, bool states)
     while (i < 127)
     {
         if ((i >= 'a' && i <= 'z') || (i >= '0' && i <= '9') 
-            || i == '+' || i ==  '=' || i == '-' || i ==  '.' || i == 'R' || i ==  'L' || i ==  'H')
+            || i == '+' || i ==  '=' || i == '-' || i ==  '.')
             printf("\t\t\t{ \"read\": \"%c\", \"to_state\": \"get_%c_in_memory\", \"write\": \"%c\", \"action\": \"RIGHT\" },\n", i, c, i);
         i++;
     }
