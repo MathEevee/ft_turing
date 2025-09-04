@@ -35,9 +35,13 @@ Lors de l'exécution du programme avec un .json et un argument, on va avoir plus
 4. La liste de tous les noms d'états
 5. L'état initial
 6. Le ou les états finaux
+
+<img width="947" height="147" alt="Screenshot from 2025-09-04 15-12-58" src="https://github.com/user-attachments/assets/e5dde24b-1992-4405-b609-641f72635a4c" />
+
 7. La liste de toutes les transitions
 *************
 8. Les différentes étapes du résultat
+
 
 
 
