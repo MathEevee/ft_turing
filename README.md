@@ -108,5 +108,4 @@ Le calcul s'arrête au premier "=" et prendra tout ce qui est sur la partie gauc
 On écrit directement sur la bande l'équivalent d'un JSON qui sera traité. Donc on lance le JSON de universel_turing_machine avec une bande qui correspond au JSON de zero_even :
 
    -"0000#e#|0eo0R|.eH+R|0oe0R|.oH-R#"
-  
    - Voir d'autres exemples dans le fichier "/ft_turing/JSON/test_universal"
