@@ -39,6 +39,12 @@ Lors de l'exécution du programme avec un .json et un argument, on va avoir plus
 <img width="947" height="147" alt="Screenshot from 2025-09-04 15-12-58" src="https://github.com/user-attachments/assets/e5dde24b-1992-4405-b609-641f72635a4c" />
 
 7. La liste de toutes les transitions
+(Exemples : )
+
+
+<img width="352" height="127" alt="Screenshot from 2025-09-04 15-15-37" src="https://github.com/user-attachments/assets/3fb7089d-c6a5-487f-910f-56c4c305d07c" />
+<img width="352" height="127" alt="Screenshot from 2025-09-04 15-15-20" src="https://github.com/user-attachments/assets/b5b6d462-e043-4eab-a250-3b4ef650b80d" />
+
 *************
 8. Les différentes étapes du résultat
 
