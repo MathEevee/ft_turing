@@ -107,5 +107,5 @@ Le calcul s'arrête au premier "=" et prendra tout ce qui est sur la partie gauc
 - Pour montrer que notre ft_turing est "turing-complet" on a créé un JSON qui va former de la mémoire pour lancer de lui méme un "autre JSON". (Voir le fichier /ft_turing/JSON/test_universal)
 On écrit directement sur la bande l'équivalent d'un JSON qui sera traité. Donc on lance le JSON de universel_turing_machine avec une bande qui correspond au JSON de zero_even :
 
-   -"0000#e#|0eo0R|.eH+R|0oe0R|.oH-R#"
+   - "0000#e#|0eo0R|.eH+R|0oe0R|.oH-R#"
    - Voir d'autres exemples dans le fichier "/ft_turing/JSON/test_universal"
