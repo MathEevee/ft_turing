@@ -27,7 +27,8 @@ Pour expliquer, les .json vont représenter les engrenages de la machine, les .m
 Lors de l'exécution du programme avec un .json et un argument, on va avoir plusieurs informations par rapport au JSON :
 
 1. Le nom de la machine 
-<img width="115" height="15" alt="Screenshot from 2025-09-04 15-07-07" src="https://github.com/user-attachments/assets/df12c28b-ec67-489c-b959-5be046432cf7" />
+<img width="388" height="44" alt="Screenshot from 2025-09-04 15-08-41" src="https://github.com/user-attachments/assets/b524cd32-9e6d-4cb9-b5a0-86d0cddd773e" />
+
 2. L'alphabet que prend la machine
 3. Le ou les caractère "blanc"
 4. La liste de tous les noms d'états
