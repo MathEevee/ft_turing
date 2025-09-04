@@ -1,6 +1,8 @@
 # 🤖 ft_turing
 
-Ce programme est en OCaml. Il a pour but de reproduire le fonctionnement de la machine de Turing (https://fr.wikipedia.org/wiki/Machine_de_Turing).
+Une machine de Turing est un modèle théorique de calcul inventé par Alan Turing en 1936 : elle se compose d’une bande infinie, d’une tête de lecture/écriture et d’un ensemble d’états qui dictent ses transitions. Elle sert de référence pour définir ce qui est calculable, en montrant qu’avec des règles simples on peut simuler n’importe quel algorithme. (https://fr.wikipedia.org/wiki/Machine_de_Turing).
+
+Ce programme est une reproduction en OCaml de cette machine.
 
 Pour expliquer, les .json vont représenter les engrenages de la machine, les .ml les rotations et changements d'états qui sont donnés dans les .json puis la bande de la machine de turing est passée en argument.
 
