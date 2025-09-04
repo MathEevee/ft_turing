@@ -56,7 +56,7 @@ Lors de l'exécution du programme avec un .json et un argument, on va avoir plus
 
 ## 🗃️ Les JSON
 
-1. binary_balancer
+**1. binary_balancer**
 
 - Cherche si il y a le même nombre de 0 et de 1 de chaque côté.
 
@@ -65,7 +65,7 @@ Lors de l'exécution du programme avec un .json et un argument, on va avoir plus
    - "1100" est faux
    - "00011" est faux
 
-2. palindrome
+**2. palindrome**
 
 - Regarde si l'argument est un palindrome.
 
@@ -74,10 +74,39 @@ Lors de l'exécution du programme avec un .json et un argument, on va avoir plus
   - "0011" est faux
   - "kayak" est vrai
 
-3. unary_add
+**3. unary_add**
 
-- Va faire une addition unaire, c'est à dire : 11+111=11111 (on a 2 "1" + 3 "1" donc on obtient 5 "1")
+- Va faire une addition unaire, c'est à dire : 11+111=11111 (on a 2 "1" + 3 "1" donc on obtient 5 "1").
+Le calcul s'arrête au premier "=" et prendra tout ce qui est sur la partie gauche uniquement.
 
    - "111+11=" fonctionne et donne "11111"
    - "111+11" ne fonctionne pas car il manque le "="
    - "+=" ne fonctionne pas car il manque un "1" pour faire la position initiale
+   - "11+1+1=" ne fonctionne pas, il ne prend en compte qu'un seul "+"
+
+**4. unary_sub**
+
+- Va faire une soustraction unaire, c'est à dire : 11-1=1 (on a 2 "1" - 1 "1" donc on obtient 1 "1")
+
+   - "111-11=" fonctionne et donne "1"
+   - "111-11" ne fonctionne pas car il manque le "="
+   - "-=" ne fonctionne pas car il manque un "1" pour faire la position initiale
+   - "11-1-1=" ne fonctionne pas, il ne prend en compte qu'un seul "-"
+   - "1-11=" fait une boucle infinie car la machine cherche un "1" sur la gauche
+
+**5. zero_even**
+
+- Vérifie que le nombre de "0" est positif.
+
+   - "0" est faux
+   - "00" est vrai
+   - "0000" est vrai
+ 
+**6. universel_turing_machine**
+
+- Pour montrer que notre ft_turing est "turing-complet" on a créé un JSON qui va former de la mémoire pour lancer de lui méme un "autre JSON". (Voir le fichier /ft_turing/JSON/test_universal)
+On écrit directement sur la bande l'équivalent d'un JSON qui sera traité. Donc on lance le JSON de universel_turing_machine avec une bande qui correspond au JSON de zero_even :
+
+   -"0000#e#|0eo0R|.eH+R|0oe0R|.oH-R#"
+  
+   - Voir d'autres exemples dans le fichier "/ft_turing/JSON/test_universal"
