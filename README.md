@@ -51,3 +51,33 @@ Lors de l'exécution du programme avec un .json et un argument, on va avoir plus
 8. Les différentes étapes du résultat
 
 <img width="592" height="418" alt="Screenshot from 2025-09-04 15-20-06" src="https://github.com/user-attachments/assets/31062a4e-316a-4fa9-86f8-6ff2c8ed1084" />
+
+---
+
+## 🗃️ Les JSON
+
+1. binary_balancer
+
+- Cherche si il y a le même nombre de 0 et de 1 de chaque côté.
+
+   - "0011" est vrai
+   - "1010" est faux
+   - "1100" est faux
+   - "00011" est faux
+
+2. palindrome
+
+- Regarde si l'argument est un palindrome.
+
+  - "salut" est faux
+  - "radar" est vrai
+  - "0011" est faux
+  - "kayak" est vrai
+
+3. unary_add
+
+- Va faire une addition unaire, c'est à dire : 11+111=11111 (on a 2 "1" + 3 "1" donc on obtient 5 "1")
+
+   - "111+11=" fonctionne et donne "11111"
+   - "111+11" ne fonctionne pas car il manque le "="
+   - "+=" ne fonctionne pas car il manque un "1" pour faire la position initiale
