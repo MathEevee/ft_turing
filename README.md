@@ -48,9 +48,4 @@ Lors de l'exécution du programme avec un .json et un argument, on va avoir plus
 *************
 8. Les différentes étapes du résultat
 
-
-
-
-
-
-
+<img width="592" height="418" alt="Screenshot from 2025-09-04 15-20-06" src="https://github.com/user-attachments/assets/31062a4e-316a-4fa9-86f8-6ff2c8ed1084" />
