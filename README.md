@@ -22,3 +22,22 @@ Pour expliquer, les .json vont représenter les engrenages de la machine, les .m
 
 ---
 
+## 📍 Notes
+
+Lors de l'exécution du programme avec un .json et un argument, on va avoir plusieurs informations par rapport au JSON :
+
+1. Le nom de la machine 
+<img width="115" height="15" alt="Screenshot from 2025-09-04 15-07-07" src="https://github.com/user-attachments/assets/df12c28b-ec67-489c-b959-5be046432cf7" />
+2. L'alphabet que prend la machine
+3. Le ou les caractère "blanc"
+4. La liste de tous les noms d'états
+5. L'état initial
+6. Le ou les états finaux
+7. La liste de toutes les transitions
+*************
+8. Les différentes étapes du résultat
+
+
+
+
+
